@@ -1,0 +1,15 @@
+Key,"English, en-US","German, de-DE","Turkish, tr-TR"
+language,"language","sprache",dil
+settings,user,einstellungen,ayarlar
+profile,profile,profil,profil
+user,user,benutzer,kullanıcı
+,,,
+# Language
+German,german,deutsch,almanca
+Turkish,turkish,türkisch,türkçe
+English,english,englisch,ingilizce
+,,,
+#Todo
+all,all,alle,tümü
+active,active,aktiv,aktif
+done,done,erledigt,tamamlandı
