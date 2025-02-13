@@ -1,8 +1,8 @@
 <template>
-    <q-footer elevated class="q-pa-xs bg-blue-grey-10 text-white">
-        <q-input dense rounded outlined bg-color="white" color="grey-5" placeholder="Label" clearable clear-icon="close" v-model="todoStore.newTodo" ref="inputRef">
+    <q-footer elevated class="q-pa-xs" :class="$q.dark.isActive ? ' bg-blue-grey-10' : 'bg-white'">
+        <q-input dense rounded outlined  placeholder="Label" clearable clear-icon="close" v-model="todoStore.newTodo" ref="inputRef">
             <template v-slot:append>
-                <q-icon name="schedule" />
+                <q-icon name="schedule"  />
             </template>
             <template v-slot:after>
                 <q-btn outline round color="grey-5" icon="send" size="13px" @click="addTodo()" :disable="todoStore.newTodo ? false : true"/>
@@ -13,6 +13,8 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useQuasar } from 'quasar';
+const $q = useQuasar()
 
 import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
@@ -34,12 +36,13 @@ onMounted(() => {
     padding-left: 4px;
 }
 
-.body--dark .q-placeholder {
-    color: black;
-}
 
-.body--dark .q-field--outlined .q-field__control:before{
+/* .body--dark .q-field--outlined .q-field__control:before{
     border: 1px solid rgba(0, 0, 0, 0.24);
 }
+
+.q-field--dark .q-field__native, .q-field--dark .q-placeholder{
+    color: #000 !important;
+} */
 </style>
 

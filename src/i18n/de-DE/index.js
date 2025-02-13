@@ -11,9 +11,20 @@ export default {
 	German: `deutsch`,
 	Turkish: `türkisch`,
 	English: `englisch`,
+	Italian: `italienisch`,
 
 	// Todo
 	all: `alle`,
 	active: `aktiv`,
 	done: `erledigt`,
+	creator: `ersteller`,
+
+	// Settings
+	user: `Benutzer`,
+	roles: `Rollen`,
+	branches: `Filialen`,
+
+	// Tooltip
+	colorModeBtn: `wechsel zwischen verschiedenen Helligkeitsmode (z.B. Dunkel u. Hell)`,
+
 }

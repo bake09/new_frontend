@@ -11,9 +11,20 @@ export default {
 	German: `german`,
 	Turkish: `turkish`,
 	English: `english`,
+	Italian: `italian`,
 
 	// Todo
 	all: `all`,
 	active: `active`,
 	done: `done`,
+	creator: `creator`,
+
+	// Settings
+	user: `User`,
+	roles: `Roles`,
+	branches: `Branches`,
+
+	// Tooltip
+	colorModeBtn: `Switch between different brightness modes (e.g. dark and light)`,
+
 }

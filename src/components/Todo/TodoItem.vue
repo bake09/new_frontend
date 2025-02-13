@@ -10,9 +10,9 @@
     </q-item-section>
     <!-- <q-item-section side class="q-pr-nones"><q-icon name="shopping_cart" /></q-item-section> -->
     
-    <q-item-section :class="todo.done ? 'text-strike text-italic' : ''">
-      <div caption class="ellipsis" style="max-width: 100%;">{{ todo.content }}</div>
-      <q-item-label caption class="ellipsis" style="max-width: 100%;"><span class="text-talic">Ersteller:</span> {{ todo.user.name }}</q-item-label>
+    <q-item-section :class="todo.done ? 'text-strike text-italic' : ''" style="width: 50px;">
+      <div caption class="ellipsis" style="max-width: 90%;">{{ todo.content }}</div>
+      <q-item-label caption class="ellipsis" style="max-width: 90%;"><span class="text-talic">{{ t('creator') }}:</span> {{ todo.user.name }}</q-item-label>
     </q-item-section>
     
     <q-item-section side :class="todo.done ? 'text-strike text-italic' : ''">
@@ -34,6 +34,8 @@
 
 <script setup>
 import { date } from 'quasar'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 import { useTodoStore } from 'src/stores/todo-store'
 const todoStore = useTodoStore()

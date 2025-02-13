@@ -27,10 +27,36 @@
     </q-scroll-area>
     <BottomSheet ref="bottomSheetRef" @onOpen="handleOpen" @onClose="handleClose">
       <template #form-content>
-        <q-form class="text-black q-gutter-md" v-if="todoStore.bottomSheetShowing.todo">
+        <q-form class="q-gutter-md bottomSheetForm" v-if="todoStore.bottomSheetShowing.todo">
           <div class="text-h6 text-center">Edit The Entry</div>
-          <q-input v-model="todoStore.bottomSheetShowing.todo.content" label="Todo" outlined />
-          <div class="row justify-end">
+          <q-input dense v-model="todoStore.bottomSheetShowing.todo.content" label="Todo" outlined />
+
+          <div class="row justify-between">
+            <q-input dense outlined label="Fälligkeitsdatum" v-model="todoStore.bottomSheetShowing.todo.due_date" class="col q-pr-md">
+              <template v-slot:prepend>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="todoStore.bottomSheetShowing.todo.due_date" mask="YYYY-MM-DD HH:mm">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-time v-model="todoStore.bottomSheetShowing.todo.due_date" mask="YYYY-MM-DD HH:mm" format24h>
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
             <q-btn label="update" color="primary" icon="save" @click="todoStore.updateTodo()"/>
           </div>
         </q-form>  
@@ -73,7 +99,7 @@ const handleClose = () => {
 
 watch(() => todoStore.bottomSheetShowing, (newVal) => {
   if (newVal.todo) {
-    bottomSheetRef.value.animateDrawerTo(240)
+    bottomSheetRef.value.animateDrawerTo(260)
     console.log('newVal :>> ', newVal);
     if(newVal.show == false){
       bottomSheetRef.value.animateDrawerTo(0)
@@ -108,10 +134,16 @@ onDeactivated(() => {
   echo.leaveChannel(`todochannel.1`)
   todoStore.leaveOnlineUsersChannel()
 })
+
+const date = ref('2025-02-11 12:44')
 </script>
 
 <style>
 .bg-gradient{
   background: linear-gradient(180deg, rgb(0, 168, 132) 0%, rgba(224,224,224,1) 100%);
 }
+
+/* .body--dark .bottomSheetForm .q-field--dark .q-field__native {
+  color: #fff !important;
+} */
 </style>

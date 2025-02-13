@@ -11,9 +11,20 @@ export default {
 	German: `almanca`,
 	Turkish: `türkçe`,
 	English: `ingilizce`,
+	Italian: `italyanca`,
 
 	// Todo
 	all: `tümü`,
 	active: `aktif`,
 	done: `tamamlandı`,
+	creator: `oluşturan`,
+
+	// Settings
+	user: `Kullanıcı`,
+	roles: `Roller`,
+	branches: `Şubeler`,
+
+	// Tooltip
+	colorModeBtn: `Farklı parlaklık modları arasında geçiş yapın (örneğin karanlık ve aydınlık)`,
+
 }

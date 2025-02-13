@@ -40,7 +40,8 @@ const { t } = useI18n()
 const localeOptions = ref([
   { label: 'German', value: 'de-DE' },
   { label: 'English', value: 'en-US' },
-  { label: 'Turkish', value: 'tr-TR' }
+  { label: 'Turkish', value: 'tr-TR' },
+  { label: 'Italian', value: 'it-IT' },
 ])
 
 onMounted(() => {
@@ -53,5 +54,9 @@ onMounted(() => {
 .inactive{
   /* filter: brightness(50); */
   filter: opacity(0.5);
+}
+
+.body--dark .bg-blue-1{
+    background: #e3f2fd2b !important;
 }
 </style>

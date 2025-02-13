@@ -3,9 +3,11 @@
 import enUS from './en-US'
 import deDE from './de-DE'
 import trTR from './tr-TR'
+import itIT from './it-IT'
 
 export default { 
 	'en-US': enUS, // English
 	'de-DE': deDE, // German
 	'tr-TR': trTR, // Turkish
+	'it-IT': itIT, // Italian
 }

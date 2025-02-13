@@ -12,14 +12,14 @@
           @click="settingStore.toggleLeftDrawer"
         />
         <!-- LanguageSwitcher -->
-        <LanguageSwitcher />
+        <LanguageSwitcher class="q-ml-sm"/>
 
         <q-toolbar-title class="text-center">
           wellorderMobile
         </q-toolbar-title>
         
         <!-- DarkModeSwitcher -->
-        <DarkModeSwitcher />
+        <DarkModeSwitcher class="q-mr-sm"/>
         
         <q-btn
           dense
@@ -77,7 +77,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="settingStore.leftDrawerOpen" show-if-above bordered :width="240" :breakpoint="1025" class="mybg">
+    <q-drawer v-model="settingStore.leftDrawerOpen" show-if-above bordered :width="240" :breakpoint="1025" class="mybgs">
       <q-list>
         <q-item-label header>Main Menue </q-item-label>
         <q-separator inset/>
@@ -114,6 +114,7 @@
         </q-item>
       </q-list>
     </q-drawer>
+    
     <q-page-container>
       <router-view v-slot="{ Component }" v-if="settingStore.isExternalRoute">
         <transition>
@@ -136,7 +137,7 @@
       </q-tab-panels>
     </q-page-container>
 
-    <TodoInput v-if="route.name == 'home' && authStore.hasPermission('create_todo')" />
+    <TodoInput v-if="route.name == 'home' && authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
     <NavTabs v-if="route.name != 'home'"/>
     
     <q-inner-loading
@@ -199,6 +200,8 @@ const modelUpdated = (newVal, oldVal) => {
 }
 
 onMounted(async() => {
+
+  console.log('$q :>> ', $q);
 
   settingStore.tab = route.name
   settingStore.animateTabs = true

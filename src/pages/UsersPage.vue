@@ -9,25 +9,25 @@
         indicator-color="primary"
         no-caps
       >
-        <q-tab name="mails"  label="Benutzerverwaltung"  />
-        <q-tab name="alarms" label="Alarms" />
-        <q-tab name="movies" label="Movies" />
+        <q-tab name="benutzer"  :label="t('user')"  />
+        <q-tab name="rollen" :label="t('roles')" />
+        <q-tab name="filialen" :label="t('branches')" />
       </q-tabs>
 
       <q-separator />
 
       <q-tab-panels v-model="tab" animated>
-        <q-tab-panel name="mails" class="q-pa-xs">
+        <q-tab-panel name="benutzer" class="q-pa-xs">
           <UserManagement />
         </q-tab-panel>
 
-        <q-tab-panel name="alarms">
-          <div class="text-h6">Alarms</div>
+        <q-tab-panel name="rollen">
+          <div class="text-h6">{{ t('roles') }}</div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </q-tab-panel>
 
-        <q-tab-panel name="movies">
-          <div class="text-h6">Movies</div>
+        <q-tab-panel name="filialen">
+          <div class="text-h6">{{ t('branches') }}</div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </q-tab-panel>
       </q-tab-panels>
@@ -38,7 +38,10 @@
 <script setup>
 import UserManagement from 'src/components/UserManagement.vue';
 import { ref } from 'vue';
-const tab = ref('mails')
+const tab = ref('benutzer')
+
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const result = ref(null)
 

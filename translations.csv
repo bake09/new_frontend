@@ -1,15 +1,26 @@
-Key,"English, en-US","German, de-DE","Turkish, tr-TR"
-language,"language","sprache",dil
-settings,user,einstellungen,ayarlar
-profile,profile,profil,profil
-user,user,benutzer,kullanıcı
-,,,
+Key,"English, en-US","German, de-DE","Turkish, tr-TR","Italian, it-IT"
+language,"language","sprache",dil,lingua
+settings,user,einstellungen,ayarlar,utente
+profile,profile,profil,profil,profilo
+user,user,benutzer,kullanıcı,utente
+,,,,
 # Language
-German,german,deutsch,almanca
-Turkish,turkish,türkisch,türkçe
-English,english,englisch,ingilizce
-,,,
+German,german,deutsch,almanca,tedesco
+Turkish,turkish,türkisch,türkçe,turco
+English,english,englisch,ingilizce,inglese
+Italian,italian,italienisch,italyanca,Italiano
+,,,,
 #Todo
-all,all,alle,tümü
-active,active,aktiv,aktif
-done,done,erledigt,tamamlandı
+all,all,alle,tümü,Tutto
+active,active,aktiv,aktif,attivo
+done,done,erledigt,tamamlandı,Fatto
+creator,creator,ersteller,oluşturan,Creatore
+,,,,
+# Settings
+user,User,Benutzer,Kullanıcı,Utente
+roles,Roles,Rollen,Roller,Ruoli
+branches,Branches,Filialen,Şubeler,Rami
+,,,,
+# Tooltip
+colorModeBtn,Switch between different brightness modes (e.g. dark and light),wechsel zwischen verschiedenen Helligkeitsmode (z.B. Dunkel u. Hell),Farklı parlaklık modları arasında geçiş yapın (örneğin karanlık ve aydınlık),Passare da una modalità di luminosità all'altra (ad esempio scuro e chiaro)
+,,,,

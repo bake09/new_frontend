@@ -4,14 +4,14 @@
 
         <q-card
             style="z-index: 2001; max-width: 600px; margin: 0 auto;"
-            class="slide-drawer slide-drawer--bottom text-white fixed-bottom column no-wrap"
+            class="slide-drawer slide-drawer--bottom fixed-bottom column no-wrap"
             :class="`slide-drawer--open-${drawerMode}`" 
             :style="drawerStyle" v-touch-pan.mouse.vertical="slideDrawer" >
             <q-card-section class="slide-drawer__handler--horizontal row flex-center q-pa-sm cursor-pointer" @click="cycleDrawer">
                 <div class="cursor-pointer"></div>
             </q-card-section>
 
-            <q-card-section class="col">
+            <q-card-section class="col bottomSheet">
                 <slot name="form-content"></slot>
             </q-card-section>
             
@@ -187,6 +187,12 @@ defineExpose({
             }
         }
     }
+}
+</style>
+
+<style>
+.body--dark .bottomSheet{
+    color: #fff;
 }
 </style>
   
