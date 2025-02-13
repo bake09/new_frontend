@@ -1,10 +1,7 @@
 <template>
-    <q-footer elevated>
+    <q-footer elevated :class="$q.dark.isActive ? 'bg-grey-10 text-white' : 'bg-white text-black'">
       <q-tabs
         v-model="settingStore.tab"
-        class="text-grey-5 bg-primary"
-        active-color="white"
-        indicator-color="white"
         inline-label
         switch-indicator
         @update:model-value="tabsModelUpdated"
@@ -20,6 +17,9 @@
 
 import { useSettingStore } from 'src/stores/settings-store';
 const settingStore = useSettingStore()
+
+import { useQuasar } from 'quasar';
+const $q = useQuasar()
 
 import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()

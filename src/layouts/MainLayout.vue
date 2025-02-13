@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <!-- <q-resize-observer @resize="onResize" /> -->
     <q-header elevated>
-      <q-toolbar class="q-px-sm "  :class="$q.dark.isActive ? ' bg-grey-10 text-white' : 'bg-white text-black'">
+      <q-toolbar class="q-px-sm " :class="$q.dark.isActive ? 'bg-grey-10 text-white' : 'bg-white text-black'">
         <q-btn
           dense
           flat

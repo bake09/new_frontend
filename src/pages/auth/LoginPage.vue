@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center bg-orange" padding>
+  <q-page class="flex flex-center" padding>
     <q-card class="q-pa-md" style="width: 420px; margin: 0 auto;">
       <q-form
           @submit.prevent="handleLogin"
