@@ -1,5 +1,5 @@
 <template>
-    <q-footer elevated class="q-pa-xs" :class="$q.dark.isActive ? ' bg-blue-grey-10' : 'bg-white'">
+    <q-footer elevated class="q-pa-xs" :class="$q.dark.isActive ? ' bg-grey-10' : 'bg-white'">
         <q-input dense rounded outlined  placeholder="Label" clearable clear-icon="close" v-model="todoStore.newTodo" ref="inputRef">
             <template v-slot:append>
                 <q-icon name="schedule"  />
