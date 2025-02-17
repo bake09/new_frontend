@@ -2,7 +2,7 @@
     <q-btn dense icon="language" round flat>
         <q-menu>  
             <q-list style="min-width: 100px">
-                <q-item 
+                <q-item
                     clickable 
                     v-close-popup 
                     v-for="localeOption in localeOptions" :key="localeOption"
@@ -58,5 +58,8 @@ onMounted(() => {
 
 .body--dark .bg-blue-1{
     background: #e3f2fd2b !important;
+}
+.body--dark .text-black{
+    color: #fff !important;
 }
 </style>

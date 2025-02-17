@@ -180,8 +180,8 @@ defineExpose({
             cursor: grab;
             > div {
                 // margin-top: 2px;
-                width: 80px;
-                height: 6px;
+                width: 60px;
+                height: 4px;
                 border-radius: 4px;
                 background-color: rgba(200, 200, 200, 0.7);
             }

@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="text-h5">Profile Image Upload</div>
+    <div class="text-h5 text-center">Profile Image Upload</div>
     <q-card
       class="image-selection-dropzone flex flex-center"
       flat
@@ -11,7 +11,7 @@
     >
       <q-card-section>
         <div class="text-center">
-          <q-btn label="Select Image(s)" icon="image" @click="triggerFileInput" />
+          <q-btn label="Select Image(s)" color="blue-grey-7" icon="image" @click="triggerFileInput" />
           <div class="q-mt-sm">or drag and drop files here</div>
           <input
             ref="fileInput"
@@ -36,7 +36,7 @@
         v-for="(image, index) in images"
         :key="index"
         >
-        <q-img :src="image.preview">
+        <q-img :src="image.preview" ratio="1" fit="contain">
           <div class="absolute-top text-right flex items-center justify-between">
             <q-list dense class="text-left" style="font-size: 10px; min-height: 10px; padding: 0px 0px; width: 60%;">
               <q-item style="font-size: 10px; min-height: 10px; padding: 0px 0px;">
@@ -187,6 +187,10 @@ onMounted(() => {
   height: 100px;
   transition: background-color 0.2s;
   background-color: #f9f9f9;
+}
+
+.body--dark .image-selection-dropzone {
+  background-color: transparent !important;
 }
 .image-selection-dropzone.drop-active {
   background-color: #e6f7ff;
