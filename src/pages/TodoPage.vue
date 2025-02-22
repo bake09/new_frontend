@@ -22,8 +22,10 @@
       <q-list v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" v-auto-animate="{ duration: 150 }" class="q-pa-sm">
         <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo"/>
       </q-list>
-      
-      <TodoItemSkeleton v-else />
+
+      <q-list v-else  class="q-pa-sm">
+        <TodoItemSkeleton />
+      </q-list>
     </q-scroll-area>
     <BottomSheet ref="bottomSheetRef" @onOpen="handleOpen" @onClose="handleClose">
       <template #form-content>
@@ -113,7 +115,7 @@ onActivated(() => {
 
   echo.channel(`todochannel.1`)
     .listen('.addTodo', (payload) => {
-      console.log('payload :>> ', payload);
+      console.log('payload addTodo :>> ', payload);
 
       todoStore.todos.push(payload.todo)
       // animateScroll()
