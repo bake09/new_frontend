@@ -112,7 +112,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Meta', 'LocalStorage', 'Notify', 'AppVisibility']
+      plugins: ['Meta', 'LocalStorage', 'Notify', 'AppVisibility', 'AddressbarColor']
     },
 
     // animations: 'all', // --- includes all animations

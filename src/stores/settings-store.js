@@ -7,6 +7,7 @@ export const useSettingStore = defineStore('settings', () => {
   const leftDrawerOpen = ref(false)
   const rightDrawerOpen = ref(false)
   const animateTabs = ref(false)
+  const addressbarColor = ref('yellow')
 
   const languages = ref([
     {
@@ -65,6 +66,7 @@ export const useSettingStore = defineStore('settings', () => {
     animateTabs,
     thumbStyle,
     barStyle,
+    addressbarColor,
 
     // Getters
     isExternalRoute,

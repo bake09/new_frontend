@@ -199,7 +199,25 @@ const modelUpdated = (newVal, oldVal) => {
   router.push({name: settingStore.tab})
 }
 
+watch(() => route.name,(newRouteName) => {
+    if (newRouteName !== settingStore.tab) {
+      settingStore.tab = newRouteName
+    }
+  }
+)
+
+watch(() => $q.dark.isActive, (value) => {
+    console.log('isDarkValue :>> ', value);
+    if(value){
+      $q.addressbarColor.set('#212121') // bg-grey-10
+    }else{
+      $q.addressbarColor.set('#fff')
+    }
+  }
+)
+
 onMounted(async() => {
+
 
   console.log('$q :>> ', $q);
 
