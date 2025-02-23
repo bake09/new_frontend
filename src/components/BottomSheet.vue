@@ -44,7 +44,7 @@ const drawerOpenRatio = computed(() =>
 )
 
 const backdropStyle = computed(() => {
-    const opacity = Math.min(0.4, drawerOpenRatio.value * 0.4);
+    const opacity = Math.min(0.8, drawerOpenRatio.value * 0.8);
     return {
         backgroundColor: `rgba(0, 0, 0, ${opacity})`,
         pointerEvents: drawerOpenRatio.value > 0 ? 'auto' : 'none',

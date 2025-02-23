@@ -15,7 +15,7 @@
                         </q-avatar>
                     </q-item-section>
 
-                    <q-item-section class="text-capitalize" :class="localeOption.value == locale ? 'text-black text-bold' : 'text-grey-8'">
+                    <q-item-section class="text-uppercase" :class="localeOption.value == locale ? 'text-black text-bold' : 'text-grey-8'">
                         {{ t(localeOption.label) }}
                     </q-item-section>
                 </q-item>
