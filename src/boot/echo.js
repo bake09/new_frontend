@@ -16,6 +16,7 @@ let apiUrl = ''
 apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
 // console.log('apiUrl :>> ', apiUrl);
 const echo = window.Echo = new Echo({
+  // broadcaster: 'pusher',
   broadcaster: 'reverb',
   wsHost: process.env.VUE_APP_SERVER_IP,
   key: '83bp94w7ulcfc7okpaza',

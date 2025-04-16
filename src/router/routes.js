@@ -11,6 +11,12 @@ const routes = [
         meta: { requiresAuth: true },
       },
       { 
+        path: '/calendar',
+        component: () => import('pages/CalendarPage.vue'),
+        name: 'calendar',
+        meta: { requiresAuth: true },
+      },
+      { 
         path: '/settings',
         component: () => import('pages/SettingsPage.vue'),
         name: 'settings',
@@ -41,6 +47,12 @@ const routes = [
         path: 'users',
         component: () => import('pages/UsersPage.vue'),
         name: 'users',
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'userform',
+        component: () => import('pages/UserFormPage.vue'),
+        name: 'userform',
         meta: { requiresAuth: true },
       },
       {

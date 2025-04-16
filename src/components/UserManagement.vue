@@ -112,7 +112,7 @@
     </q-card>
   </q-dialog> 
   
-  <div class="row flex q-col-gutter-md q-mt-sm">
+  <!-- <div class="row flex q-col-gutter-md q-mt-sm">
     <div class="col-12">
       <q-table
         dense
@@ -123,7 +123,6 @@
         row-key="id"
         hide-pagination
       >
-        <!-- Custom header with extra column for expand button -->
         <template v-slot:header="props">
           <q-tr :props="props">
             <q-th auto-width />
@@ -134,13 +133,6 @@
         </template>
 
         <template v-slot:body="props">
-          <!-- <q-tr :props="props">
-            <q-td colspan="100%">
-              <div class="text-left">
-                This is the expanded slot for row: {{ props.row.name }}....
-              </div>
-            </q-td>
-          </q-tr> -->
 
           <q-tr :props="props" @click="selectUser(props.row)">
             <q-td auto-width>
@@ -154,7 +146,7 @@
               />
             </q-td>
             <q-td key="id" :props="props" >
-              <!-- {{ props.row.id }}  --><q-checkbox v-model="right" :label="`${props.row.id}`" />
+              <q-checkbox v-model="right" :label="`${props.row.id}`" />
             </q-td>
             <q-td key="all" :props="props">
               <q-checkbox dense v-model="props.row.all" />
@@ -176,7 +168,6 @@
             </q-td>
           </q-tr>
 
-          <!-- Expanded row content -->
           <q-tr v-show="props.expand" :props="props">
             <q-td colspan="100%">
               <div class="text-left">
@@ -187,7 +178,7 @@
         </template>
       </q-table>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup>

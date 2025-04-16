@@ -121,7 +121,7 @@ onActivated(() => {
       // animateScroll()
     })
     .listen('.toggleTodo', (payload) => {
-      // console.log('payload :>> ', payload);
+      console.log('payload :>> ', payload);
       todoStore.toggleTodoDoneLocally(payload.todo)
     })
     .listen('.deleteTodo', (payload) => {

@@ -15,7 +15,14 @@
         <LanguageSwitcher class="q-ml-sm"/>
 
         <q-toolbar-title class="text-center">
-          wellorderMobile
+          <!-- wellorderMobile -->
+          <q-list>
+            <q-item no-caps clickable v-ripple class="non-selectable q-pa-xs" to="/" exact active-class="none">
+              <div style="margin:0 auto;">
+                <span style="color: #d6c29c; font-weight: 700; font-size: 26px; font-style: italic;">weller</span><span>Automobile</span>
+              </div>
+            </q-item>
+          </q-list>
         </q-toolbar-title>
         
         <!-- DarkModeSwitcher -->
@@ -39,6 +46,12 @@
                   <q-icon name="home" />
                 </q-item-section>
                 <q-item-section>Home</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
+                <q-item-section avatar>
+                  <q-icon name="calendar_month" />
+                </q-item-section>
+                <q-item-section>Calendar</q-item-section>
               </q-item>
               <q-item clickable v-close-popup to="login" exact v-if="!authStore.user">
                 <q-item-section avatar>
@@ -217,15 +230,13 @@ watch(() => $q.dark.isActive, (value) => {
 )
 
 onMounted(async() => {
-
-
-  console.log('$q :>> ', $q);
+  // console.log('$q :>> ', $q);
 
   settingStore.tab = route.name
   settingStore.animateTabs = true
 
   if (authStore.user && authStore.user.roles.length > 0) {
-    console.log("true");
+    // console.log("true");
     // Abonniere den privaten Kanal für die Rolle des Benutzers
     echo.private(`roles.${authStore.user.roles[0].id}`)
       .listen('RolePermissionsUpdated', (data) => {
