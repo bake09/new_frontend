@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <transition
+    <!-- <transition
       enter-active-class="animated fadeInDown fast"
       leave-active-class="animated fadeOutUp fast"
     >
@@ -8,12 +8,10 @@
         <div class="row flex">
           <TodoFilter />
           <q-space />
-          <!-- <TodoSorting /> -->
           <TodoSorting />
-          <!-- <q-btn icon="home" @click="handleShowSheet(sheetContent, sheetHeight)"/> -->
         </div>
       </q-banner>
-    </transition>
+    </transition> -->
     <q-scroll-area style="height: calc(100vh - 154px); max-width: 100%;" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
       <q-inner-loading :showing="todoStore.todosLoading">
         <q-spinner size="50px" color="primary" />

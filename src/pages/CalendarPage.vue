@@ -1,36 +1,41 @@
 <template>
-  <q-page class="flex flex-center column">
-    <div class="row">
-      <q-btn @click="startSelection" label="Start Selection" color="purple"/>
+  <q-page class="flex column">
+    <div class="col bg-blue-2">
+      <GameFrame />
     </div>
-    <div class="chessboard q-pa-md">
-      <div
-        v-for="(item, index) in items"
-        :key="index"
-        class="cell"
-      >
-        <q-img
-          src="https://picsum.photos/200/200"
-          :ratio="1"
-          class="image"
-        />
-        <q-card
-          class="closed flex flex-center text-h3 text-white"
-          v-if="!item.selected && !item.final"
+    <div class="row col flex flex-center bg-green-2">
+        <q-btn @click="startSelection" label="Start Selection" color="purple"/>
+    </div>
+    <div class="row col flex flex-center bg-red-3">
+      <div class="chessboard q-pa-md">
+        <div
+          v-for="(item, index) in items"
+          :key="index"
+          class="cell"
         >
-          ?
-        </q-card>
-        <q-card
-          class="selection flex flex-center text-h3 text-white"
-          v-if="item.selected"
-        >
-          !
-        </q-card>
-        <q-card
-          class="final-selection flex flex-center text-h3 text-white"
-          v-if="item.final"
-        >
-        :)</q-card>
+          <q-img
+            src="https://picsum.photos/200/200"
+            :ratio="1"
+            class="image"
+          />
+          <q-card
+            class="closed flex flex-center text-h3 text-white"
+            v-if="!item.selected && !item.final"
+          >
+            ?
+          </q-card>
+          <q-card
+            class="selection flex flex-center text-h3 text-white"
+            v-if="item.selected"
+          >
+            !
+          </q-card>
+          <q-card
+            class="final-selection flex flex-center text-h3 text-white"
+            v-if="item.final"
+          >
+          :)</q-card>
+        </div>
       </div>
     </div>
   </q-page>
@@ -39,6 +44,7 @@
 <script setup>
 import { onActivated, onMounted, onUnmounted, ref } from 'vue';
 import { echo } from "../boot/echo";
+import GameFrame from 'src/components/Game/GameFrame.vue';
 
 const roomId = ref(1);
 
@@ -110,11 +116,37 @@ const startSelection = () => {
 
   // Generiere die Animationssequenz
   const sequence = [];
-  for (let i = 0; i < 20; i++) {
-    const randomIndex = Math.floor(Math.random() * selectableItems.length);
-    sequence.push(selectableItems[randomIndex].id);
+  const usedCounts = {}; // Zählt, wie oft jede Box in der Sequenz vorkommt
+
+  // Füge alle Boxen mindestens einmal hinzu
+  const shuffledItems = [...selectableItems].sort(() => Math.random() - 0.5);
+  shuffledItems.forEach((item) => {
+    sequence.push(item.id);
+    usedCounts[item.id] = 1; // Jede Box wurde mindestens einmal verwendet
+  });
+
+  // Fülle die restliche Sequenz auf
+  while (sequence.length < 20) {
+    let nextIndex;
+    let nextItem;
+
+    do {
+      nextIndex = Math.floor(Math.random() * selectableItems.length);
+      nextItem = selectableItems[nextIndex];
+    } while (
+      sequence[sequence.length - 1] === nextItem.id || // Verhindere gleiche Zahlen hintereinander
+      (usedCounts[nextItem.id] || 0) >= 2 // Verhindere mehr als zweimaliges Vorkommen
+    );
+
+    // Füge die ID zur Sequenz hinzu
+    sequence.push(nextItem.id);
+
+    // Aktualisiere die Zählung
+    usedCounts[nextItem.id] = (usedCounts[nextItem.id] || 0) + 1;
   }
-  sequence.push(chosenItem.id); // Füge das finale Item hinzu
+
+  // Füge das finale Item hinzu
+  sequence.push(chosenItem.id); // Das finale Item wird immer zuletzt hinzugefügt
 
   console.log(`Generated sequence:`, sequence);
 

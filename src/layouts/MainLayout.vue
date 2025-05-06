@@ -60,6 +60,12 @@
                 <q-item-section>Login</q-item-section>
               </q-item>
               <q-separator />
+              <q-item clickable v-close-popup to="roles" exact v-if="authStore.user">
+                <q-item-section avatar>
+                  <q-icon name="settings" />
+                </q-item-section>
+                <q-item-section>Roles</q-item-section>
+              </q-item>
               <q-item clickable v-close-popup to="settings" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="settings" />

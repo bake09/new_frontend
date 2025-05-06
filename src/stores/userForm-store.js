@@ -4,6 +4,7 @@ import { api } from "boot/axios";
 
 export const useUserFormStore = defineStore('userForm', () => {
   // State
+  const usersFound = ref([])
   const step1Form = ref({
     email: {
       content: '',
@@ -32,18 +33,21 @@ export const useUserFormStore = defineStore('userForm', () => {
     }
   })
 
-
   // Getters
 
   // Actions  
   async function checkEmail() {
-    console.log("triggered");
+    usersFound.value = []
     const email = step1Form.value.email.content
     console.log('email :>> ', email);
     if(email.length != ''){
       try {
         const res = await api.post('/check-email', {email: email})
-        console.log("check-email : ", res)
+        console.log("check-email : ", res.data)
+        if(res.data.length > 0){
+          usersFound.value = res.data
+          step1Form.value.email.done = true
+        }
       }
       catch (err) {
         console.error(err)
