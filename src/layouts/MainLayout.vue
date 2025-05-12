@@ -140,6 +140,10 @@
           <component :is="Component" />
         </transition>
       </router-view>
+
+      <!-- <q-page-container>
+        <router-view />
+      </q-page-container> -->
       
       <q-tab-panels v-else v-model="settingStore.tab" :animated="settingStore.animateTabs" swipeable @transition="modelUpdated" keep-alive>
         <q-tab-panel name="home" class="q-pa-none">

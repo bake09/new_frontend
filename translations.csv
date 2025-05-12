@@ -1,8 +1,8 @@
 Key,"English, en-US","German, de-DE","Turkish, tr-TR","Italian, it-IT"
-language,"language","sprache",dil,lingua
-settings,user,einstellungen,ayarlar,utente
-profile,profile,profil,profil,profilo
-user,user,benutzer,kullanıcı,utente
+language,"language","Sprache",dil,lingua
+settings,settings,Einstellungen,ayarlar,utente
+profile,profile,Profil,profil,profilo
+user,user,Benutzer,kullanıcı,utente
 ,,,,
 # Language
 German,german,deutsch,almanca,tedesco
@@ -14,7 +14,7 @@ Italian,italian,italienisch,italyanca,Italiano
 all,all,alle,tümü,Tutto
 active,active,aktiv,aktif,attivo
 done,done,erledigt,tamamlandı,Fatto
-creator,creator,ersteller,oluşturan,Creatore
+creator,creator,Ersteller,oluşturan,Creatore
 ,,,,
 # Settings
 user,User,Benutzer,Kullanıcı,Utente

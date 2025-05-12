@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <q-list bordered >
-      <q-item-label header class="text-center">Settings</q-item-label>
+      <q-item-label header class="text-center">{{ t('settings')}}</q-item-label>
       <q-separator inset/>
       <q-item tag="label" v-ripple dense>
         <q-item-section side>
@@ -14,12 +14,13 @@
           <q-toggle color="blue" v-model="isDark" val="battery" />
         </q-item-section>
       </q-item>
-      
     </q-list>
   </q-page>
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+const  { t } = useI18n()
 import { watch } from 'vue'
 
 import { useDark, useToggle } from '@vueuse/core'

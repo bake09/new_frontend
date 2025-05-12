@@ -13,7 +13,8 @@ let apiUrl = ''
 //   apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth`
 // }
 
-apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
+// apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
+apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth` // https und ohne Port
 // console.log('apiUrl :>> ', apiUrl);
 const echo = window.Echo = new Echo({
   // broadcaster: 'pusher',
@@ -22,6 +23,7 @@ const echo = window.Echo = new Echo({
   key: '83bp94w7ulcfc7okpaza',
   wsPort: 8080,
   wssPort: 8081,
+  // forceTLS: true,
   forceTLS: false,
   enabledTransports: ['ws', 'wss'],
   // authEndpoint: 'http://10.3.16.167:8000/broadcasting/auth', // Auth-Endpoint

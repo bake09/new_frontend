@@ -1,11 +1,5 @@
 <template>
-  <q-btn 
-    round 
-    dense
-    flat
-    :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'" 
-    @click="toggleDark()"
-  >
+  <q-btn round dense flat :icon="$q.dark.isActive ? 'dark_mode' : 'light_mode'" @click="toggleDark()">
     <q-tooltip v-if="$q.screen.gt.sm">
       {{ t('colorModeBtn') }}
     </q-tooltip>

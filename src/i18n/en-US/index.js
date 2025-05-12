@@ -3,7 +3,7 @@
 
 export default {
 	language: `language`,
-	settings: `user`,
+	settings: `settings`,
 	profile: `profile`,
 	user: `user`,
 

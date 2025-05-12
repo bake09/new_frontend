@@ -141,7 +141,8 @@ export const useTodoStore = defineStore('todo', () => {
   }
   const renderAvatarHelper = ((avatar) => {
     if(avatar){
-      return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
+      return `http://${process.env.VUE_APP_SERVER_IP}/${avatar}`
+      // return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
     }
   })
   const toggleBottomSheet = (todo = null) => {
