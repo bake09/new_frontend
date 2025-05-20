@@ -9,7 +9,7 @@ import { api } from "boot/axios";
 
 let url = new URL(process.env.VUE_APP_API_URL)
 console.log('url :>> ', url);
-let apiUrl = `${url.hostname}/broadcasting/auth`
+let apiUrl = `${url.origin}/broadcasting/auth`
 // if (process.env.DEV) {
 //   apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
 // }else{
