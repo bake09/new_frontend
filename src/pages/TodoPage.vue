@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <PushNotificationsBanner v-if="todoStore.showNotificationsBanner"/> 
     <!-- <transition
       enter-active-class="animated fadeInDown fast"
       leave-active-class="animated fadeOutUp fast"
@@ -12,7 +13,7 @@
         </div>
       </q-banner>
     </transition> -->
-    <q-scroll-area style="height: calc(100vh - 154px); max-width: 100%;" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
+    <div style="height: calc(100vh - 154px); max-width: 100%;" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
       <q-inner-loading :showing="todoStore.todosLoading">
         <q-spinner size="50px" color="primary" />
       </q-inner-loading>
@@ -24,7 +25,8 @@
       <q-list v-else  class="q-pa-sm">
         <TodoItemSkeleton />
       </q-list>
-    </q-scroll-area>
+      <TodoInput v-if="authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
+    </div>
     <BottomSheet ref="bottomSheetRef" @onOpen="handleOpen" @onClose="handleClose">
       <template #form-content>
         <q-form class="q-gutter-md bottomSheetForm" v-if="todoStore.bottomSheetShowing.todo">
@@ -66,9 +68,11 @@
 </template>
 
 <script setup>
-import { onActivated, onDeactivated, ref, watch } from 'vue';
+import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
+
+import TodoInput from 'src/components/Todo/TodoInput.vue';
 
 import { useAuthStore } from 'src/stores/auth-store';
 const authStore = useAuthStore()
@@ -77,14 +81,16 @@ import { useSettingStore } from 'src/stores/settings-store';
 const settingStore = useSettingStore()
 
 import { echo } from "../boot/echo";
-import TodoSorting from 'src/components/Todo/TodoSorting.vue';
+
 import TodoItem from 'src/components/Todo/TodoItem.vue';
 import TodoItemSkeleton from 'src/components/Todo/TodoItemSkeleton.vue';
 
+import TodoSorting from 'src/components/Todo/TodoSorting.vue';
 import TodoFilter from 'src/components/Todo/TodoFilter.vue';
 
 const bottomSheetRef = ref(null)
 import BottomSheet from 'src/components/BottomSheet.vue';
+import PushNotificationsBanner from 'src/components/Todo/PushNotificationsBanner.vue';
 
 const handleShowSheet = (content, height) => {
   bottomSheetRef.value.animateDrawerTo(height)
@@ -107,7 +113,8 @@ watch(() => todoStore.bottomSheetShowing, (newVal) => {
   }
 }, {deep: true})
 
-onActivated(() => {
+onMounted(() => {
+  console.log("onMounted triggered");
   todoStore.joinAndListenOnlineUsersChannel()
   todoStore.getTodos()
 
@@ -128,7 +135,7 @@ onActivated(() => {
     });
 })
 
-onDeactivated(() => {
+onUnmounted(() => {
   todoStore.todosLoading = true
   todoStore.clearTodos()
   echo.leaveChannel(`todochannel.1`)
@@ -142,8 +149,4 @@ const date = ref('2025-02-11 12:44')
 .bg-gradient{
   background: linear-gradient(180deg, rgb(0, 168, 132) 0%, rgba(224,224,224,1) 100%);
 }
-
-/* .body--dark .bottomSheetForm .q-field--dark .q-field__native {
-  color: #fff !important;
-} */
 </style>

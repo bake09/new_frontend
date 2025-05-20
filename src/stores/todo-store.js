@@ -20,6 +20,7 @@ export const useTodoStore = defineStore('todo', () => {
     id: null,
     state: false
   })
+  const showNotificationsBanner = ref(true)
 
   // Getters
   const totalTodosCount = computed(() => todos.value.length)
@@ -64,6 +65,15 @@ export const useTodoStore = defineStore('todo', () => {
     renderFilter.value = filter
     console.log('renderFilter.value :>> ', renderFilter.value);
   }
+
+  const pushNotificationsSupported = computed(() => {
+      console.log("CHECK pushNotificationsSupported triggered");
+
+      // return 'serviceWorker' in navigator && 'PushManager' in window;
+      if('PushManager' in window) return true
+      return false
+    }
+  )
 
   // Actions
   const getTodos = () => {
@@ -141,8 +151,8 @@ export const useTodoStore = defineStore('todo', () => {
   }
   const renderAvatarHelper = ((avatar) => {
     if(avatar){
-      return `http://${process.env.VUE_APP_SERVER_IP}/${avatar}`
-      // return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
+      // return `http://${process.env.VUE_APP_SERVER_IP}/${avatar}`
+      return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
     }
   })
   const toggleBottomSheet = (todo = null) => {
@@ -181,17 +191,33 @@ export const useTodoStore = defineStore('todo', () => {
         }
       });
   }
-
   const joinOnlineUsersChannel = () => {
     Echo.join('users.1')
   }
   const leaveOnlineUsersChannel = () => {
     Echo.leave('users.1')
   }
-
   const resetProccesing = () => {
     processing.value.id = null
     processing.value.state = false
+  }
+  const setPushNotifications = async (val) => {
+    console.log('setPushNotifications :>> ', val)
+    if(pushNotificationsSupported.value){
+      console.log("supported");
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Push notifications permission granted');
+          // Hier kannst du den Code hinzufügen, um Push-Benachrichtigungen zu abonnieren
+        } else if (permission === 'denied') {
+          console.log('Push notifications permission denied');
+        } else {
+          console.log('Push notifications permission dismissed');
+        }
+      })
+    }else{
+      console.log("not supported");
+    }
   }
 
   return {
@@ -206,13 +232,14 @@ export const useTodoStore = defineStore('todo', () => {
     bottomSheetShowing,
     onlineUsers,
     processing,
+    showNotificationsBanner,
 
     // Getters
     totalTodosCount,
     doneTodosCount,
     openTodosCount,
     filteredTodos,
-
+    pushNotificationsSupported,
 
     // Actions
     getTodos,
@@ -231,6 +258,7 @@ export const useTodoStore = defineStore('todo', () => {
     joinOnlineUsersChannel,
     leaveOnlineUsersChannel,
     resetProccesing,
+    setPushNotifications,
 
   }
 })

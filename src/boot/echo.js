@@ -13,8 +13,8 @@ let apiUrl = ''
 //   apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth`
 // }
 
-// apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
-apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth` // https und ohne Port
+apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
+// apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth` // https und ohne Port
 // console.log('apiUrl :>> ', apiUrl);
 const echo = window.Echo = new Echo({
   // broadcaster: 'pusher',

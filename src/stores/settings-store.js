@@ -44,7 +44,7 @@ export const useSettingStore = defineStore('settings', () => {
   const linksList = ref([
     { title: 'Home', caption: 'Home Page', icon: 'home', to: '/', requiresAuth: true },
     { title: 'Login', caption: 'Login Page', icon: 'person', to: 'login', requiresAuth: false },
-    { title: 'Calendar', caption: 'Calendar Page', icon: 'calendar_month', to: 'calendar', requiresAuth: true },
+    // { title: 'Calendar', caption: 'Calendar Page', icon: 'calendar_month', to: 'calendar', requiresAuth: true },
     { title: 'Settings', caption: 'Settings Page', icon: 'settings', to: 'settings', requiresAuth: true },
     { title: 'Roles', caption: 'Roles Page', icon: 'settings', to: 'roles', requiresAuth: true },
     { title: 'Profile', caption: 'Profile Page', icon: 'person', to: 'profile', requiresAuth: true },

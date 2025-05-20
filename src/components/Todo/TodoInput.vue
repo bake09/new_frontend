@@ -32,6 +32,7 @@ onMounted(() => {
 </script>
 
 <style>
+
 .q-field__native, .q-field__input {
     padding-left: 4px;
 }

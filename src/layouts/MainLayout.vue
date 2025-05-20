@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh LpR fFf">
     <!-- <q-resize-observer @resize="onResize" /> -->
     <q-header elevated>
       <q-toolbar class="q-px-sm " :class="$q.dark.isActive ? 'bg-grey-10 text-white' : 'bg-white text-black'">
@@ -47,12 +47,12 @@
                 </q-item-section>
                 <q-item-section>Home</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
+              <!-- <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="calendar_month" />
                 </q-item-section>
                 <q-item-section>Calendar</q-item-section>
-              </q-item>
+              </q-item> -->
               <q-item clickable v-close-popup to="login" exact v-if="!authStore.user">
                 <q-item-section avatar>
                   <q-icon name="person" />
@@ -135,17 +135,17 @@
     </q-drawer>
     
     <q-page-container>
+      <router-view />
+    </q-page-container>
+    <!-- <q-page-container>
       <router-view v-slot="{ Component }" v-if="settingStore.isExternalRoute">
         <transition>
           <component :is="Component" />
         </transition>
-      </router-view>
+      </router-view> -->
 
-      <!-- <q-page-container>
-        <router-view />
-      </q-page-container> -->
       
-      <q-tab-panels v-else v-model="settingStore.tab" :animated="settingStore.animateTabs" swipeable @transition="modelUpdated" keep-alive>
+      <!-- <q-tab-panels v-else v-model="settingStore.tab" :animated="settingStore.animateTabs" swipeable @transition="modelUpdated" keep-alive>
         <q-tab-panel name="home" class="q-pa-none">
           <IndexPage />
         </q-tab-panel>
@@ -158,12 +158,11 @@
           <SettingsPage />
         </q-tab-panel>
       </q-tab-panels>
-    </q-page-container>
+    </q-page-container> -->
 
-    <TodoInput v-if="route.name == 'home' && authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
-    <NavTabs v-if="route.name != 'home'"/>
+    <!-- <NavTabs v-if="route.name != 'home'"/> -->
     
-    <q-inner-loading
+    <q-inne r-loading
       :showing="authStore.isAuthProceeding.loading"
       :label="authStore.isAuthProceeding.label"
       label-style="font-size: 1.1em"

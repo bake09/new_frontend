@@ -15,6 +15,14 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+    <q-list>
+      <q-item v-for="i in 20">
+        <q-item-section>
+          <q-item-label>Lorem ipsum</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
   </q-page>
 </template>
 
