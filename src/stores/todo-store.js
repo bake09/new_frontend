@@ -158,12 +158,12 @@ export const useTodoStore = defineStore('todo', () => {
 
       // 1. /api entfernen (egal ob mit oder ohne Slash dahinter)
       // Ersetzt /api oder /api/ durch /
-      // server = server.replace(/\/api(\/|$)/, '');
-      // console.log('server 2 (ohne /api):', server);
+      server = server.replace(/\/api(\/|$)/, '');
+      console.log('server 2 (ohne /api):', server);
 
       // 2. Port entfernen (z. B. :8000), egal wo er steht
-      server = server.replace(/:\d+/, '');
-      console.log('server 3 (ohne Port):', server);
+      // server = server.replace(/:\d+/, '');
+      // console.log('server 3 (ohne Port):', server);
 
       return `${server}/${avatar}`;
     }
