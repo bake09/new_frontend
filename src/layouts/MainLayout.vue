@@ -162,7 +162,7 @@
 
     <!-- <NavTabs v-if="route.name != 'home'"/> -->
     
-    <q-inne r-loading
+    <q-inner-loading
       :showing="authStore.isAuthProceeding.loading"
       :label="authStore.isAuthProceeding.label"
       label-style="font-size: 1.1em"

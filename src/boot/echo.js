@@ -7,7 +7,7 @@ window.Pusher = Pusher
 import { api } from "boot/axios";
 
 let apiUrl = process.env.VUE_APP_API_URL
-apiUrl = api.replace(/\/api(\/|$)/, '');
+apiUrl = apiUrl.replace(/\/api(\/|$)/, '');
 // if (process.env.DEV) {
 //   apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
 // }else{
