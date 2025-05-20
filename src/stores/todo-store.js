@@ -151,8 +151,21 @@ export const useTodoStore = defineStore('todo', () => {
   }
   const renderAvatarHelper = ((avatar) => {
     if(avatar){
-      // return `http://${process.env.VUE_APP_SERVER_IP}/${avatar}`
-      return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
+      // // return `http://${process.env.VUE_APP_SERVER_IP}/${avatar}`
+      // return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
+      let server = process.env.VUE_APP_API_URL || '';
+      console.log('server 1 (original):', server); // z. B. http://10.53.90.180:8000/api
+
+      // 1. /api entfernen (egal ob mit oder ohne Slash dahinter)
+      // Ersetzt /api oder /api/ durch /
+      // server = server.replace(/\/api(\/|$)/, '');
+      // console.log('server 2 (ohne /api):', server);
+
+      // 2. Port entfernen (z. B. :8000), egal wo er steht
+      server = server.replace(/:\d+/, '');
+      console.log('server 3 (ohne Port):', server);
+
+      return `${server}/${avatar}`;
     }
   })
   const toggleBottomSheet = (todo = null) => {
