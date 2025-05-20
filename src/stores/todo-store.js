@@ -153,11 +153,11 @@ export const useTodoStore = defineStore('todo', () => {
     if(avatar){
       // // return `http://${process.env.VUE_APP_SERVER_IP}/${avatar}`
       // return `http://${process.env.VUE_APP_SERVER_IP}:8000/${avatar}`
-      let server = process.env.VUE_APP_API_URL || '';
-      server = server.replace(/\/api(\/|$)/, '');
-      console.log('server 2 (ohne /api):', server);
+
+      let url = new URL(process.env.VUE_APP_API_URL)
+
       // server = server.replace(/:\d+/, '');
-      return `${server}/${avatar}`;
+      return `${url.origin}/${avatar}`;
     }
   })
   const toggleBottomSheet = (todo = null) => {

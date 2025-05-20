@@ -6,8 +6,10 @@ window.Pusher = Pusher
 
 import { api } from "boot/axios";
 
-let apiUrl = process.env.VUE_APP_API_URL
-apiUrl = apiUrl.replace(/\/api(\/|$)/, '');
+
+let url = new URL(process.env.VUE_APP_API_URL)
+console.log('url :>> ', url);
+let apiUrl = `${url.hostname}/broadcasting/auth`
 // if (process.env.DEV) {
 //   apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
 // }else{
@@ -20,7 +22,7 @@ apiUrl = apiUrl.replace(/\/api(\/|$)/, '');
 const echo = window.Echo = new Echo({
   // broadcaster: 'pusher',
   broadcaster: 'reverb',
-  wsHost: process.env.VUE_APP_SERVER_IP,
+  wsHost: url.host,
   key: '83bp94w7ulcfc7okpaza',
   wsPort: 8080,
   wssPort: 8081,
