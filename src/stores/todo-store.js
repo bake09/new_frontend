@@ -207,10 +207,12 @@ export const useTodoStore = defineStore('todo', () => {
       Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
           console.log('Push notifications permission granted');
-          // Hier kannst du den Code hinzufügen, um Push-Benachrichtigungen zu abonnieren
           new Notification('Push notifications enabled');
           navigator.serviceWorker.ready.then((swreg) => {
-            console.log('swreg :>> ', swreg);
+            swreg.showNotification('Enabled', {
+              body: 'You will now receive push notifications.',
+              icon: '\icons\favicon-128x128.png'
+            });
           })
         } else if (permission === 'denied') {
           console.log('Push notifications permission denied');
