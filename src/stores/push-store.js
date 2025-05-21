@@ -55,7 +55,7 @@ export const usePushStore = defineStore('push', () => {
       subscription.value = newSubscription;
 
       // Sende die Subscription an das Backend
-      await api.post('/api/notifications/subscribe', newSubscription)
+      await api.post('/notifications/subscribe', newSubscription)
     } catch (error) {
       console.error('Fehler beim Abonnieren von Push-Benachrichtigungen:', error)
     }
@@ -69,7 +69,7 @@ export const usePushStore = defineStore('push', () => {
 
     try {
       await subscription.value.unsubscribe()
-      await api.post('/api/notifications/unsubscribe', {
+      await api.post('/notifications/unsubscribe', {
         endpoint: subscription.value.endpoint,
       })
       subscription.value = null
