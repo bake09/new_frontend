@@ -1,52 +1,97 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { api } from 'src/boot/axios';
+import { api } from 'src/boot/axios'
 
 export const usePushStore = defineStore('push', () => {
-  
   // State
   const showNotificationsBanner = ref(true)
-  
-  // Getters
-  const pushNotificationsSupported = computed(() => {
-      console.log("CHECK pushNotificationsSupported triggered");
+  const subscription = ref(null)
+  const permission = ref(Notification.permission)
 
-      // return 'serviceWorker' in navigator && 'PushManager' in window;
-      if('PushManager' in window) return true
-      return false
-    }
-  )
-  
+  // Getter
+  const pushNotificationsSupported = computed(() => {
+    return 'serviceWorker' in navigator && 'PushManager' in window;
+  });
+
   // Actions
-  const setPushNotifications = async (val) => {
-    if(pushNotificationsSupported.value){
-      console.log("supported");
-      Notification.requestPermission().then((permission) => {
-        if (permission === 'granted') {
-          console.log('Push notifications permission granted');
-          new Notification('Push notifications enabled');
-          navigator.serviceWorker.ready.then((swreg) => {
-            swreg.showNotification('Enabled', {
-              body: 'You will now receive push notifications.',
-              icon: '\icons\favicon-128x128.png'
-            });
-          })
-        } else if (permission === 'denied') {
-          console.log('Push notifications permission denied');
-        } else {
-          console.log('Push notifications permission dismissed');
-        }
-      })
-    }else{
-      console.log("not supported");
+  const requestPermission = async () => {
+    if (!pushNotificationsSupported.value) {
+      console.warn('Push-Benachrichtigungen werden nicht unterstützt.')
+      return;
+    }
+
+    try {
+      const result = await Notification.requestPermission()
+      permission.value = result;
+      if (result !== 'granted') {
+        console.warn('Benachrichtigungsberechtigung nicht erteilt.')
+      }
+    } catch (error) {
+      console.error('Fehler beim Anfordern der Benachrichtigungsberechtigung:', error)
     }
   }
+
+  const subscribeUser = async () => {
+    if (permission.value !== 'granted') {
+      console.warn('Benachrichtigungsberechtigung nicht erteilt.')
+      return
+    }
+
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      const existingSubscription = await registration.pushManager.getSubscription()
+
+      if (existingSubscription) {
+        subscription.value = existingSubscription
+        return
+      }
+
+      const newSubscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: 'BF7vw8z4IrBtFQsPXUM9Q3StVgebufBI1ZQkpMxSwGUsOy1F1x8_Kt-vZATKIXvgURBOCsqQ8vHYUm3Xvn8LBtU',
+        
+      });
+
+      subscription.value = newSubscription;
+
+      // Sende die Subscription an das Backend
+      await api.post('/api/notifications/subscribe', newSubscription)
+    } catch (error) {
+      console.error('Fehler beim Abonnieren von Push-Benachrichtigungen:', error)
+    }
+  }
+
+  const unsubscribeUser = async () => {
+    if (!subscription.value) {
+      console.warn('Keine aktive Subscription zum Abbestellen.')
+      return;
+    }
+
+    try {
+      await subscription.value.unsubscribe()
+      await api.post('/api/notifications/unsubscribe', {
+        endpoint: subscription.value.endpoint,
+      })
+      subscription.value = null
+    } catch (error) {
+      console.error('Fehler beim Abbestellen von Push-Benachrichtigungen:', error)
+    }
+  }
+
+
+  // Spalten in der Laravel migration der Packe laravel-notification-channels package
   // id	subscribable_type	subscribable_id	endpoint	public_key	auth_token	content_encoding	created_at	updated_at	
 
-  // return 
   return {
+    // State
     showNotificationsBanner,
+    subscription,
+    permission,
+    // Getter
     pushNotificationsSupported,
-    setPushNotifications
+    // Actions
+    requestPermission,
+    subscribeUser,
+    unsubscribeUser,
   }
 })

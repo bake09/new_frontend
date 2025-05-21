@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="flex column">
     <PushNotificationsBanner v-if="pushStore.showNotificationsBanner"/> 
     <!-- <transition
       enter-active-class="animated fadeInDown fast"
@@ -13,7 +13,8 @@
         </div>
       </q-banner>
     </transition> -->
-    <div style="height: calc(100vh - 154px); max-width: 100%;" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
+    <!-- <div style="height: calc(100vh - 154px); max-width: 100%;" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle"> -->
+    <div>
       <q-inner-loading :showing="todoStore.todosLoading">
         <q-spinner size="50px" color="primary" />
       </q-inner-loading>
@@ -117,7 +118,6 @@ watch(() => todoStore.bottomSheetShowing, (newVal) => {
 }, {deep: true})
 
 onMounted(() => {
-  console.log("onMounted triggered");
   todoStore.joinAndListenOnlineUsersChannel()
   todoStore.getTodos()
 

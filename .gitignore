@@ -34,4 +34,4 @@ yarn-error.log*
 
 # own Files
 # /src/boot/echo.js
-# .env
+.env
