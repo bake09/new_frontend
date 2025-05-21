@@ -13,10 +13,8 @@
 </template>
 
 <script setup>
-import { useTodoStore } from 'src/stores/todo-store';
-const todoStore = useTodoStore()
 import { usePushStore } from 'src/stores/push-store';
-const pushStore = useTodoStore()
+const pushStore = usePushStore()
 
 
 import { useQuasar } from 'quasar';

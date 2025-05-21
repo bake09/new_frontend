@@ -72,7 +72,7 @@ import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch } from '
 import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
 import { usePushStore } from 'src/stores/push-store';
-const pushStore = useTodoStore()
+const pushStore = usePushStore()
 
 
 import TodoInput from 'src/components/Todo/TodoInput.vue';
