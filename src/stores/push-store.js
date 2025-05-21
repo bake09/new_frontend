@@ -39,7 +39,9 @@ export const usePushStore = defineStore('push', () => {
 
     try {
       const registration = await navigator.serviceWorker.ready;
+      console.log('registration :>> ', registration);
       const existingSubscription = await registration.pushManager.getSubscription()
+      console.log('existingSubscription :>> ', existingSubscription);
 
       if (existingSubscription) {
         subscription.value = existingSubscription
