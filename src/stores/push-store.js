@@ -6,8 +6,8 @@ export const usePushStore = defineStore('push', () => {
   
   // State
   const showNotificationsBanner = ref(true)
-  // Getters
   
+  // Getters
   const pushNotificationsSupported = computed(() => {
       console.log("CHECK pushNotificationsSupported triggered");
 
@@ -16,8 +16,8 @@ export const usePushStore = defineStore('push', () => {
       return false
     }
   )
-  // Actions
   
+  // Actions
   const setPushNotifications = async (val) => {
     if(pushNotificationsSupported.value){
       console.log("supported");
