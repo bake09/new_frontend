@@ -6,19 +6,12 @@ window.Pusher = Pusher
 
 import { api } from "boot/axios";
 
-
 let url = new URL(process.env.VUE_APP_API_URL)
-console.log('url :>> ', url);
 let apiUrl = `${url.origin}/broadcasting/auth`
-// if (process.env.DEV) {
-//   apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
-// }else{
-//   apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth`
-// }
 
 // apiUrl = `http://${process.env.VUE_APP_SERVER_IP}:8000/broadcasting/auth`
 // apiUrl = `https://${process.env.VUE_APP_SERVER_IP}/broadcasting/auth` // https und ohne Port
-// console.log('apiUrl :>> ', apiUrl);
+
 const echo = window.Echo = new Echo({
   // broadcaster: 'pusher',
   broadcaster: 'reverb',

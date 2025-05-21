@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <PushNotificationsBanner v-if="todoStore.showNotificationsBanner"/> 
+    <PushNotificationsBanner v-if="pushStore.showNotificationsBanner"/> 
     <!-- <transition
       enter-active-class="animated fadeInDown fast"
       leave-active-class="animated fadeOutUp fast"
@@ -71,6 +71,9 @@
 import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
+import { usePushStore } from 'src/stores/push-store';
+const pushStore = useTodoStore()
+
 
 import TodoInput from 'src/components/Todo/TodoInput.vue';
 
