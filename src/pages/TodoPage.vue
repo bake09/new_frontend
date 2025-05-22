@@ -1,6 +1,8 @@
 <template>
   <q-page class="flex column">
-    <PushNotificationsBanner v-if="pushStore.showNotificationsBanner"/> 
+    <PushNotificationsBanner />
+    
+    <!-- <PushNotificationsBanner v-if="pushStore.showNotificationsBanner"/> -->
     <!-- <transition
       enter-active-class="animated fadeInDown fast"
       leave-active-class="animated fadeOutUp fast"
