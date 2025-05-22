@@ -24,3 +24,8 @@
 
 ::-webkit-scrollbar-thumb:hover {
 }
+
+body, html {
+    overscroll-behavior: none;
+    height: 100dvh;
+}

@@ -1,7 +1,7 @@
 <template>
-  <q-page class="flex column">
+  <q-page class="">
     <PushNotificationsBanner />
-    
+
     <!-- <PushNotificationsBanner v-if="pushStore.showNotificationsBanner"/> -->
     <!-- <transition
       enter-active-class="animated fadeInDown fast"
@@ -28,7 +28,6 @@
       <q-list v-else  class="q-pa-sm">
         <TodoItemSkeleton />
       </q-list>
-      <TodoInput v-if="authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
     </div>
     <BottomSheet ref="bottomSheetRef" @onOpen="handleOpen" @onClose="handleClose">
       <template #form-content>

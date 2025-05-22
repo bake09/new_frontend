@@ -134,7 +134,7 @@
       </q-list>
     </q-drawer>
     
-    <q-page-container>
+    <q-page-container >
       <router-view />
     </q-page-container>
     <!-- <q-page-container>
@@ -160,6 +160,7 @@
       </q-tab-panels>
     </q-page-container> -->
 
+    <TodoInput v-if="authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
     <!-- <NavTabs v-if="route.name != 'home'"/> -->
     
     <q-inner-loading
