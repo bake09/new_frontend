@@ -4,7 +4,6 @@ import { api } from 'src/boot/axios'
 
 export const usePushStore = defineStore('push', () => {
   // State
-  const showNotificationsBanner = ref(true)
   const subscription = ref(null)
   const permission = ref(Notification.permission)
 
@@ -12,6 +11,10 @@ export const usePushStore = defineStore('push', () => {
   const pushNotificationsSupported = computed(() => {
     return 'serviceWorker' in navigator && 'PushManager' in window;
   });
+
+  const showNotificationsBanner = computed(() => {
+    return permission.value !== 'granted' && pushNotificationsSupported.value;
+  })
 
   // Actions
   const requestPermission = async () => {
@@ -39,9 +42,7 @@ export const usePushStore = defineStore('push', () => {
 
     try {
       const registration = await navigator.serviceWorker.ready;
-      console.log('registration :>> ', registration);
       const existingSubscription = await registration.pushManager.getSubscription()
-      console.log('existingSubscription :>> ', existingSubscription);
 
       if (existingSubscription) {
         subscription.value = existingSubscription
@@ -50,7 +51,7 @@ export const usePushStore = defineStore('push', () => {
 
       const newSubscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: 'BF7vw8z4IrBtFQsPXUM9Q3StVgebufBI1ZQkpMxSwGUsOy1F1x8_Kt-vZATKIXvgURBOCsqQ8vHYUm3Xvn8LBtU',
+        applicationServerKey: process.env.VUE_APP_VAPID_PUBLIC_KEY,
         
       });
 
@@ -86,11 +87,13 @@ export const usePushStore = defineStore('push', () => {
 
   return {
     // State
-    showNotificationsBanner,
     subscription,
     permission,
+
     // Getter
     pushNotificationsSupported,
+    showNotificationsBanner,
+
     // Actions
     requestPermission,
     subscribeUser,

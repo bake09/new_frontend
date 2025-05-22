@@ -13,17 +13,19 @@ precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 
 // Fallback für Navigationsanfragen
-if (process.env.MODE !== 'ssr' || process.env.PROD) {
-  registerRoute(
-    new NavigationRoute(
-      createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML),
-      { denylist: [/sw\.js$/, /workbox-(.)*\.js$/] }
-    )
-  );
-}
+// if (process.env.MODE !== 'ssr' || process.env.PROD) {
+//   registerRoute(
+//     new NavigationRoute(
+//       createHandlerBoundToURL(process.env.PWA_FALLBACK_HTML),
+//       { denylist: [/sw\.js$/, /workbox-(.)*\.js$/] }
+//     )
+//   );
+// }
+
 
 // Listener für eingehende Push-Benachrichtigungen
 self.addEventListener('push', function(event) {
+  console.log('event :>> ', event);
   let data = {};
   if (event.data) {
     try {
