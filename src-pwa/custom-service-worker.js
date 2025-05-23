@@ -38,8 +38,9 @@ self.addEventListener('push', function(event) {
   const title = data.title || 'Benachrichtigung';
   const options = {
     body: data.body || 'Sie haben eine neue Nachricht.',
-    icon: data.icon || '/icons/icon-128x128.png',
-    badge: data.badge || '/icons/icon-128x128.png',
+    icon: data.icon || 'icons/icon-128x128.png',
+    image: data.icon || 'icons/icon-128x128.png',
+    badge: data.badge || 'icons/icon-128x128.png',
     data: {
       url: data.url || '/',
     },

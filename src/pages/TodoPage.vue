@@ -93,6 +93,10 @@ import TodoItemSkeleton from 'src/components/Todo/TodoItemSkeleton.vue';
 import TodoSorting from 'src/components/Todo/TodoSorting.vue';
 import TodoFilter from 'src/components/Todo/TodoFilter.vue';
 
+
+const dialogVisible = ref(true)
+
+
 const bottomSheetRef = ref(null)
 import BottomSheet from 'src/components/BottomSheet.vue';
 import PushNotificationsBanner from 'src/components/Todo/PushNotificationsBanner.vue';
