@@ -1,5 +1,11 @@
 <template>
-  <q-item clickable v-ripple :class="todo.done ? 'bg-done' : ''" class="my-item q-mb-xs q-py-sm q-px-sm" @click="todoStore.toggleDone(todo)" >
+  <q-item
+    clickable
+    v-ripple
+    :class="todo.done ? 'bg-done' : ''"
+    class="my-item q-mb-xs q-py-sm q-px-sm absolute-position"
+    @click="todoStore.toggleDone(todo)"
+  >
     <q-item-section avatar @click.prevent.stop >
       <q-avatar v-if="todo.user.avatar" :class="todoStore.onlineUsers.includes(todo.user.id) ? 'avatar-status-glow' : ''">
         <img 
@@ -8,7 +14,6 @@
           >
       </q-avatar>
     </q-item-section>
-    <!-- <q-item-section side class="q-pr-nones"><q-icon name="shopping_cart" /></q-item-section> -->
     
     <q-item-section :class="todo.done ? 'text-strike text-italic' : ''" style="width: 50px;">
       <div caption class="ellipsis" style="max-width: 90%;">{{ todo.content }}</div>
@@ -36,6 +41,7 @@
 import { date } from 'quasar'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
+import { ref } from 'vue'
 
 import { useTodoStore } from 'src/stores/todo-store'
 const todoStore = useTodoStore()
@@ -63,6 +69,7 @@ const props = defineProps({
 .my-item{
   border-radius: 0px;
   border: 1px solid hsl(0deg 0% 50.2% / 27.84%);
+
 }
 .avatar-status-online{
   background-color: transparent;

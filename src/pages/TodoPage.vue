@@ -3,7 +3,7 @@
     <PushNotificationsBanner />
 
     <!-- <PushNotificationsBanner v-if="pushStore.showNotificationsBanner"/> -->
-    <!-- <transition
+    <transition
       enter-active-class="animated fadeInDown fast"
       leave-active-class="animated fadeOutUp fast"
     >
@@ -14,8 +14,22 @@
           <TodoSorting />
         </div>
       </q-banner>
-    </transition> -->
+    </transition>
     <!-- <div style="height: calc(100vh - 154px); max-width: 100%;" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle"> -->
+
+    <!-- <div ref="scrollTargetRef" class="q-pa-md" style="max-height: 250px; overflow: auto;">
+
+      <q-infinite-scroll @load="onLoad" :scroll-target="scrollTargetRef"  reverse>
+        <template v-slot:loading>
+          <div class="row justify-center q-my-md">
+            <q-spinner color="primary" name="dots" size="40px" />
+          </div>
+        </template>
+        
+        <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo"/>
+      </q-infinite-scroll>
+    </div> -->
+
     <div>
       <q-inner-loading :showing="todoStore.todosLoading">
         <q-spinner size="50px" color="primary" />
@@ -29,6 +43,8 @@
         <TodoItemSkeleton />
       </q-list>
     </div>
+
+    <TodoInput v-if="authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
     <BottomSheet ref="bottomSheetRef" @onOpen="handleOpen" @onClose="handleClose">
       <template #form-content>
         <q-form class="q-gutter-md bottomSheetForm" v-if="todoStore.bottomSheetShowing.todo">
@@ -96,6 +112,7 @@ import TodoFilter from 'src/components/Todo/TodoFilter.vue';
 
 const dialogVisible = ref(true)
 
+const scrollTargetRef = ref(null)
 
 const bottomSheetRef = ref(null)
 import BottomSheet from 'src/components/BottomSheet.vue';
@@ -122,14 +139,14 @@ watch(() => todoStore.bottomSheetShowing, (newVal) => {
   }
 }, {deep: true})
 
-onMounted(() => {
+onMounted(async () => {
+  await pushStore.getSubscription()
   todoStore.joinAndListenOnlineUsersChannel()
   todoStore.getTodos()
 
   echo.channel(`todochannel.1`)
     .listen('.addTodo', (payload) => {
       console.log('payload addTodo :>> ', payload);
-
       todoStore.todos.push(payload.todo)
       // animateScroll()
     })

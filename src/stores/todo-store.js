@@ -162,7 +162,7 @@ export const useTodoStore = defineStore('todo', () => {
   const joinAndListenOnlineUsersChannel = () => {
     Echo.join('users.1')
       .here((users) => {
-        // console.log("USERS here : ", users);
+        console.log("USERS here : ", users);
         users.forEach(user => {
           // Nur hinzufügen, wenn die ID noch nicht im Array ist
           if (!onlineUsers.value.includes(user.id)) {

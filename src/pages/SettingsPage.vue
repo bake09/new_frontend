@@ -11,15 +11,7 @@
           <q-item-label>{{ $q.dark.isActive ? 'DarkMode' : 'LightMode' }}</q-item-label>
         </q-item-section>
         <q-item-section side >
-          <q-toggle color="blue" v-model="isDark" val="battery" />
-        </q-item-section>
-      </q-item>
-    </q-list>
-
-    <q-list>
-      <q-item v-for="i in 20">
-        <q-item-section>
-          <q-item-label>Lorem ipsum</q-item-label>
+          <q-toggle color="blue" v-model="isDark" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -43,13 +35,8 @@ $q.dark.set(isDark.value)
 // DarkMode in combination with VueUSE
 watch(() => isDark.value, val => {
   // console.log('val Dark :>> ', val)
+  console.log('isDark :>> ', isDark);
   $q.dark.set(val)
 })
 
 </script>
-
-<style scoped>
-.truncate-chip-labels > .q-chip {
-  max-width: 130px;
-}
-</style>

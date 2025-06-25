@@ -52,10 +52,17 @@ export const useUsersStore = defineStore('users', () => {
       isLoading.value = false
     }
   }
+  
+  const isRoleSelected = (role) => {
+    return selectedUser.value.roles.some(r => r.id === role.id);
+  }
+  const isPermissionSelected = (permission) => {
+    return selectedUser.value.permissions.some(p => p.id === permission.id);
+  }
   const fetchRoles = async () => {
     try {
       const res = await api.get('roles')
-      console.log("response : ", res.data)
+      console.log("response api.get('roles') : ", res.data)
       allRolesWithPermissions.value = res.data.roles
       allPermissionsWithRoles.value = res.data.permissions
       isLoading.value = false
@@ -124,27 +131,41 @@ export const useUsersStore = defineStore('users', () => {
   const toggleRole = (role, isChecked) => {
     console.log('isChecked :>> ', isChecked);
     console.log('permission :>> ', role);
+    // if (isChecked) {
+    //   if (!selectedUser.value.roles.includes(role)) {
+    //     selectedUser.value.roles.push(role);
+    //   }
+    // } else {
+    //   selectedUser.value.roles = selectedUser.value.roles.filter(
+    //     (perm) => perm !== role
+    //   );
+    // }
+    const roles = selectedUser.value.roles;
+
     if (isChecked) {
-      if (!selectedUser.value.roles.includes(role)) {
-        selectedUser.value.roles.push(role);
+      // Nur hinzufügen, wenn noch nicht vorhanden (vergleich auf id)
+      const exists = roles.some(r => r.id === role.id);
+      if (!exists) {
+        selectedUser.value.roles = [...roles, role];
       }
     } else {
-      selectedUser.value.roles = selectedUser.value.roles.filter(
-        (perm) => perm !== role
-      );
+      // Entfernen aller übereinstimmenden Rollen (nach id)
+      selectedUser.value.roles = roles.filter(r => r.id !== role.id);
     }
   }
   const togglePermission = (permission, isChecked) => {
     console.log('isChecked :>> ', isChecked);
     console.log('permission :>> ', permission);
+    const perms = selectedUser.value.permissions;
+
+    const permId = typeof permission === 'object' && permission.id ? permission.id : permission;
+
     if (isChecked) {
-      if (!selectedUser.value.permissions.includes(permission)) {
-        selectedUser.value.permissions.push(permission);
+      if (!perms.some(p => (p.id || p) === permId)) {
+        selectedUser.value.permissions = [...perms, permission];
       }
     } else {
-      selectedUser.value.permissions = selectedUser.value.permissions.filter(
-        (perm) => perm !== permission
-      );
+      selectedUser.value.permissions = perms.filter(p => (p.id || p) !== permId);
     }
   }
 
@@ -165,7 +186,6 @@ export const useUsersStore = defineStore('users', () => {
     assignPermissionToRole,
     removePermissionFromRole,
 
-
     // Getters
 
     // Actions
@@ -175,6 +195,8 @@ export const useUsersStore = defineStore('users', () => {
     toggleRole,
     togglePermission,
     fetchRoles,
+    isRoleSelected,
+    isPermissionSelected,
 
   } 
 })

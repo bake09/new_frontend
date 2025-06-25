@@ -34,6 +34,19 @@ export const usePushStore = defineStore('push', () => {
     }
   }
 
+  const getSubscription = async () => {
+    if (!pushNotificationsSupported.value) return null
+    try {
+      const registration = await navigator.serviceWorker.ready
+      const existingSubscription = await registration.pushManager.getSubscription()
+      subscription.value = existingSubscription
+      return existingSubscription
+    } catch (error) {
+      console.error('Fehler beim Abrufen der Push-Subscription:', error)
+      return null
+    }
+  }
+
   const subscribeUser = async () => {
     if (permission.value !== 'granted') {
       console.warn('Benachrichtigungsberechtigung nicht erteilt.')
@@ -41,23 +54,16 @@ export const usePushStore = defineStore('push', () => {
     }
 
     try {
-      const registration = await navigator.serviceWorker.ready;
-      const existingSubscription = await registration.pushManager.getSubscription()
+      const existing = await getSubscription()
+      if (existing) return
 
-      if (existingSubscription) {
-        subscription.value = existingSubscription
-        return
-      }
-
+      const registration = await navigator.serviceWorker.ready
       const newSubscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: process.env.VUE_APP_VAPID_PUBLIC_KEY,
-        
-      });
+      })
 
-      subscription.value = newSubscription;
-
-      // Sende die Subscription an das Backend
+      subscription.value = newSubscription
       await api.post('/notifications/subscribe', newSubscription)
     } catch (error) {
       console.error('Fehler beim Abonnieren von Push-Benachrichtigungen:', error)
@@ -81,7 +87,6 @@ export const usePushStore = defineStore('push', () => {
     }
   }
 
-
   // Spalten in der Laravel migration der Packe laravel-notification-channels package
   // id	subscribable_type	subscribable_id	endpoint	public_key	auth_token	content_encoding	created_at	updated_at	
 
@@ -98,5 +103,6 @@ export const usePushStore = defineStore('push', () => {
     requestPermission,
     subscribeUser,
     unsubscribeUser,
+    getSubscription
   }
 })

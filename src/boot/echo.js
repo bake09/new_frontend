@@ -15,7 +15,7 @@ let apiUrl = `${url.origin}/broadcasting/auth`
 const echo = window.Echo = new Echo({
   // broadcaster: 'pusher',
   broadcaster: 'reverb',
-  wsHost: url.host,
+  wsHost: url.hostname,
   key: '83bp94w7ulcfc7okpaza',
   wsPort: 8080,
   wssPort: 8081,

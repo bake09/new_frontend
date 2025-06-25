@@ -78,38 +78,58 @@
           <q-input v-model="usersStore.selectedUser.email" label="Email" dense clearable outlined />
           <q-separator />
           <div>Rollen & Rechte</div>
-            <q-splitter v-model="splitterModel" disable>
-              <template v-slot:before>
-                <div class="text-h6 q-px-sm">Roles</div>
-                <q-checkbox 
-                  v-for="(role, index) in usersStore.allRoles"
-                  :key="index"
-                  :label="role" 
-                  :model-value="usersStore.selectedUser.roles.includes(role)"
-                  @update:model-value="(isChecked) => usersStore.toggleRole(role, isChecked)"
-                  :val="role"
-                />
-              </template>
+          <!-- <q-splitter v-model="splitterModel" disable>
+            <template v-slot:before>
+              <div class="text-h6 q-px-sm">Roles</div>
+              <q-checkbox
+                v-for="role in usersStore.allRolesWithPermissions"
+                :key="role.id"
+                :label="role.name"
+                :model-value="usersStore.isRoleSelected(role)"
+                @update:model-value="checked => usersStore.toggleRole(role, checked)"
+              />
+            </template>
 
-              <template v-slot:after>
-                <div class="text-h6 q-px-sm">Permissions</div>
+            <template v-slot:after>
+              <div class="text-h6 q-px-md">Permissions</div>
+              <div class="q-col-gutter-sm q-mx-sm">
+              <div v-for="(permission, index) in usersStore.allPermissionsWithRoles" :key="index">
+               <div>{{ permission[0] }}</div>
                 <q-checkbox
-                  disable
                   dense
-                  v-for="(permission, index) in usersStore.allPermissions"
-                  :key="index"
-                  :label="permission"
-                  :model-value="usersStore.selectedUser.permissions.includes(permission)"
-                  @update:model-value="(isChecked) => usersStore.togglePermission(permission, isChecked)"
-                  :val="permission"
+                  :key="permission.id || permission"
+                  :label="permission.name || permission"
+                  :model-value="usersStore.isPermissionSelected(permission)"
+                  @update:model-value="checked => usersStore.togglePermission(permission, checked)"
                 />
-              </template>
-            </q-splitter>
+              </div>
+              </div>
+            </template>
+          </q-splitter> -->
+          
+          <div class="row" v-for="role in usersStore.allRolesWithPermissions" :key="role.id">
+            <div class="full-width">
+              <q-checkbox
+                :label="role.name"
+                :model-value="usersStore.isRoleSelected(role)"
+                @update:model-value="checked => usersStore.toggleRole(role, checked)"
+              />
+              <div class="row">
+                <q-checkbox
+                  v-for="permission in role.permissions"
+                  :label="permission.name"
+                  :model-value="usersStore.isPermissionSelected(permission)"
+                  @update:model-value="checked => usersStore.togglePermission(permission, checked)"
+                 />
+              </div>
+              <q-separator inset />
+            </div>
+          </div>
         </q-form>
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" @click="usersStore.updateUser" v-close-popup />
+        <q-btn outline label="OK" color="primary" @click="usersStore.updateUser" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -204,7 +224,7 @@ const rows2 = ref([
 ])
 
 onMounted(async () => {
+   usersStore.fetchRoles()
   await usersStore.fetchUsers()
-  // await usersStore.fetchRoles()
 })
 </script>

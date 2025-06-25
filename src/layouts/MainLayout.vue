@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <!-- <q-resize-observer @resize="onResize" /> -->
-    <q-header elevated>
-      <q-toolbar class="q-px-sm " :class="$q.dark.isActive ? 'bg-grey-10 text-white' : 'bg-white text-black'">
+    <q-header >
+      <q-toolbar class="q-px-sm shadow-3" :class="$q.dark.isActive ? 'bg-blue-grey-10 text-white' : 'bg-white text-black'">
         <q-btn
           dense
           flat
@@ -47,12 +47,12 @@
                 </q-item-section>
                 <q-item-section>Home</q-item-section>
               </q-item>
-              <!-- <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
+              <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="calendar_month" />
                 </q-item-section>
                 <q-item-section>Calendar</q-item-section>
-              </q-item> -->
+              </q-item>
               <q-item clickable v-close-popup to="login" exact v-if="!authStore.user">
                 <q-item-section avatar>
                   <q-icon name="person" />
@@ -60,6 +60,12 @@
                 <q-item-section>Login</q-item-section>
               </q-item>
               <q-separator />
+              <q-item clickable v-close-popup to="lobby" exact v-if="authStore.user">
+                <q-item-section avatar>
+                  <q-icon name="settings" />
+                </q-item-section>
+                <q-item-section>Lobby</q-item-section>
+              </q-item>
               <q-item clickable v-close-popup to="roles" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="settings" />
@@ -160,7 +166,6 @@
       </q-tab-panels>
     </q-page-container> -->
 
-    <TodoInput v-if="authStore.hasPermission('create_todo')" :style="$q.screen.gt.sm ? 'margin: 0 auto; width: calc(100% - 480px);' : ''"/>
     <!-- <NavTabs v-if="route.name != 'home'"/> -->
     
     <q-inner-loading

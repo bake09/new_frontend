@@ -10,6 +10,18 @@ const routes = [
         meta: { requiresAuth: true },
       },
       { 
+        path: '/test',
+        component: () => import('pages/TestPage.vue'),
+        name: 'test',
+        meta: { requiresAuth: true },
+      },
+      { 
+        path: '/lobby',
+        component: () => import('pages/LobbyPage.vue'),
+        name: 'lobby',
+        meta: { requiresAuth: true },
+      },
+      { 
         path: '/calendar',
         component: () => import('pages/CalendarPage.vue'),
         name: 'calendar',
