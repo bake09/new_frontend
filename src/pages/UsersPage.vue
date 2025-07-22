@@ -11,7 +11,7 @@
       >
         <q-tab name="benutzer"  :label="t('user')"  />
         <q-tab name="rollen" :label="t('roles')" />
-        <q-tab name="filialen" :label="t('branches')" />
+        <q-tab name="branches" :label="t('branches')" />
       </q-tabs>
 
       <q-separator />
@@ -22,11 +22,11 @@
         </q-tab-panel>
 
         <q-tab-panel name="rollen">
-          <div class="text-h6">{{ t('roles') }}</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <!-- <div class="text-h6">{{ t('roles') }}</div> -->
+          <RolesAndPermissionsTable />
         </q-tab-panel>
 
-        <q-tab-panel name="filialen">
+        <q-tab-panel name="branches">
           <div class="text-h6">{{ t('branches') }}</div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </q-tab-panel>
@@ -37,12 +37,17 @@
 
 <script setup>
 import UserManagement from 'src/components/UserManagement.vue';
-import { ref } from 'vue';
+import RolesAndPermissionsTable from 'src/components/RolesAndPermissionsTable.vue';
+import { onActivated, ref } from 'vue';
 const tab = ref('benutzer')
+// const tab = ref('rollen')
+
+
+import { useUsersStore } from 'src/stores/users-store'
+const usersStore = useUsersStore()
 
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 const result = ref(null)
-
 </script>

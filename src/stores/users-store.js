@@ -1,22 +1,18 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { api } from "boot/axios";
 
 export const useUsersStore = defineStore('users', () => {
   // State
   const users = ref([])
-  const isLoading = ref(false)
+  const isLoading = ref()
   const selectedUser = ref(null)
+  const selectedUserRole = ref(null)
+  const selectedRole = ref(null)
   const showEditDialog = ref(false)
-  const allRoles = ref(["admin",])
-  const allPermissions = ref([
-    "create_todo",
-    "read_todo",
-    "update_todo",
-    "delete_todo",
-  ])
   const allRolesWithPermissions = ref([])
   const allPermissionsWithRoles = ref([])
+  const currentRoleToEdit = ref([])
 
   // Getters
   const roles = computed(() => {
@@ -36,6 +32,90 @@ export const useUsersStore = defineStore('users', () => {
       })),
     }));
   });
+  const dynamicRoles = computed(() => {
+    return allRolesWithPermissions.value.map(role => {
+      const capitalized = role.name;
+
+      // Bau das Objekt: start mit name, dann für jede permission ein Key/Value
+      const permsObj = role.permissions.reduce((acc, permission) => {
+        acc[permission.name] = permission.name
+        return acc;
+      }, {});
+
+      return {
+        id: role.id,
+        name: capitalized,
+        ...permsObj
+      };
+    });
+  });
+  const dynamicPermissions = computed(() => {
+    const mapped = allPermissionsWithRoles.value.map(p => ({
+      id: p.id,
+      name: p.name,
+      label: p.name.replace('_', ' '),
+      field: p.name,
+    }));
+
+    const staticFirst = {
+      align: 'left',
+      name: 'Role',
+      label: 'Role',
+      field: 'name',
+    };
+
+    const actionEdit = { 
+      name: 'actions', 
+      label: 'Edit', 
+      field: 'actions', 
+      align: 'right'
+    }
+
+    return [staticFirst, ...mapped, actionEdit];
+  });
+  const findAndReturnRoleWithPermissions = computed(() => {
+    const foundRole = allRolesWithPermissions.value.find(role => role.id == selectedRole.value);
+    if (foundRole) {
+      currentRoleToEdit.value = JSON.parse(JSON.stringify(foundRole));
+      return currentRoleToEdit.value;
+    }
+    currentRoleToEdit.value = null;
+    return null;
+  })
+  const returnRoleOfSelectedUser = computed(() => {
+    if (selectedUser.value && selectedUser.value.roles && selectedUser.value.roles.length > 0) {
+      return {
+        value: selectedUser.value.roles[0].id,
+        label: selectedUser.value.roles[0].name,
+      }; // Nimm die erste Rolle des Benutzers
+    }
+    return null; // Falls kein Benutzer oder keine Rolle vorhanden ist
+  });
+  const returnAllRolesForSelect = computed(() => {
+    return allRolesWithPermissions.value.map(role => ({
+      label: role.name,
+      value: role.id,
+      permissions: role.permissions.map(permission => ({
+        id: permission.id,
+        name: permission.name,
+        isChecked: true
+      })),
+    }));
+  });
+
+  
+  const returnAllPermissionsForCheckboxes = computed(() => {
+    return allPermissionsWithRoles.value.map(permission => ({
+      id: permission.id,
+      name: permission.name,
+    }));
+  });
+  
+  watch(findAndReturnRoleWithPermissions, (newRole, oldRole) => {
+    if (newRole && oldRole != null) {
+      updatePermissionsFromRole(newRole)
+    }
+  }, {deep: true});
 
   // Actions
   const fetchUsers = async () => {
@@ -44,7 +124,6 @@ export const useUsersStore = defineStore('users', () => {
       const res = await api.get('user')
       console.log("users-store : ", res.data.data)
       users.value = res.data.data
-      // selectedUser.value = users.value[0]
       showEditDialog.value = true
       isLoading.value = false
     } catch (err) {
@@ -52,14 +131,14 @@ export const useUsersStore = defineStore('users', () => {
       isLoading.value = false
     }
   }
-  
   const isRoleSelected = (role) => {
     return selectedUser.value.roles.some(r => r.id === role.id);
   }
   const isPermissionSelected = (permission) => {
-    return selectedUser.value.permissions.some(p => p.id === permission.id);
+    return selectedUserRole.value.permissions.some(p => p.id === permission.id);
   }
   const fetchRoles = async () => {
+    isLoading.value = true
     try {
       const res = await api.get('roles')
       console.log("response api.get('roles') : ", res.data)
@@ -153,19 +232,22 @@ export const useUsersStore = defineStore('users', () => {
       selectedUser.value.roles = roles.filter(r => r.id !== role.id);
     }
   }
-  const togglePermission = (permission, isChecked) => {
-    console.log('isChecked :>> ', isChecked);
-    console.log('permission :>> ', permission);
-    const perms = selectedUser.value.permissions;
-
-    const permId = typeof permission === 'object' && permission.id ? permission.id : permission;
-
-    if (isChecked) {
-      if (!perms.some(p => (p.id || p) === permId)) {
-        selectedUser.value.permissions = [...perms, permission];
-      }
+  const togglePermission = (permission) => {
+    const perms = currentRoleToEdit.value.permissions;
+    const index = perms.findIndex(p => p.id === permission.id);
+    if (index === -1) {
+      perms.push(permission);
     } else {
-      selectedUser.value.permissions = perms.filter(p => (p.id || p) !== permId);
+      perms.splice(index, 1);
+    }
+  }
+  const updatePermissionsFromRole = async (role) => {
+    try {
+      const res = await api.patch(`roles/${role.id}/updateRole`, role);
+      console.log("Role updated:", res);
+      // await fetchRoles(); // Rollen neu laden
+    } catch (error) {
+      console.error("Error updating role:", error);
     }
   }
 
@@ -175,9 +257,9 @@ export const useUsersStore = defineStore('users', () => {
     users,
     isLoading,
     selectedUser,
+    selectedUserRole,
+    selectedRole,
     showEditDialog,
-    allPermissions,
-    allRoles,
     allRolesWithPermissions,
     allPermissionsWithRoles,
     roles,
@@ -185,8 +267,15 @@ export const useUsersStore = defineStore('users', () => {
     createRole,
     assignPermissionToRole,
     removePermissionFromRole,
+    currentRoleToEdit,
 
     // Getters
+    dynamicRoles,
+    dynamicPermissions,
+    findAndReturnRoleWithPermissions,
+    returnRoleOfSelectedUser,
+    returnAllRolesForSelect,
+    returnAllPermissionsForCheckboxes,
 
     // Actions
     fetchUsers,

@@ -22,6 +22,12 @@ const routes = [
         meta: { requiresAuth: true },
       },
       { 
+        path: '/game',
+        component: () => import('pages/GamePage.vue'),
+        name: 'game',
+        meta: { requiresAuth: true },
+      },
+      { 
         path: '/calendar',
         component: () => import('pages/CalendarPage.vue'),
         name: 'calendar',
@@ -81,6 +87,12 @@ const routes = [
         path: 'logout',
         component: () => import('pages/auth/LogoutPage.vue'),
         name: 'logout',
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'fahrzeugschein',
+        component: () => import('pages/FahrzeugscheinPage.vue'),
+        name: 'fahrzeugschein',
         meta: { requiresAuth: true },
       }
     ]

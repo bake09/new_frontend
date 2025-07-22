@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <!-- <q-resize-observer @resize="onResize" /> -->
-    <q-header >
-      <q-toolbar class="q-px-sm shadow-3" :class="$q.dark.isActive ? 'bg-blue-grey-10 text-white' : 'bg-white text-black'">
+    <q-header elevated>
+      <q-toolbar  class="q-px-sm" :class="$q.dark.isActive ? 'bg-blue-grey-10 text-white' : 'bg-white text-black'">
         <q-btn
           dense
           flat
@@ -47,12 +47,12 @@
                 </q-item-section>
                 <q-item-section>Home</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
+              <!-- <q-item clickable v-close-popup to="/calendar" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="calendar_month" />
                 </q-item-section>
                 <q-item-section>Calendar</q-item-section>
-              </q-item>
+              </q-item> -->
               <q-item clickable v-close-popup to="login" exact v-if="!authStore.user">
                 <q-item-section avatar>
                   <q-icon name="person" />
@@ -60,12 +60,12 @@
                 <q-item-section>Login</q-item-section>
               </q-item>
               <q-separator />
-              <q-item clickable v-close-popup to="lobby" exact v-if="authStore.user">
+              <!-- <q-item clickable v-close-popup to="lobby" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="settings" />
                 </q-item-section>
                 <q-item-section>Lobby</q-item-section>
-              </q-item>
+              </q-item> -->
               <q-item clickable v-close-popup to="roles" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="settings" />
@@ -112,7 +112,7 @@
           v-bind="link"
           v-show="link.requiresAuth && authStore.user"
         />
-        <q-item clickable @click="authStore.handleTokenLogout"  v-show="authStore.user">
+        <!-- <q-item clickable @click="authStore.handleTokenLogout"  v-show="authStore.user">
           <q-item-section avatar>
             <q-icon name="logout"/>
           </q-item-section>
@@ -120,7 +120,7 @@
             <q-item-label>Logout</q-item-label>
             <q-item-label caption>Function</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item> -->
       </q-list>
     </q-drawer>
 
@@ -245,24 +245,29 @@ watch(() => $q.dark.isActive, (value) => {
 )
 
 onMounted(async() => {
-  // console.log('$q :>> ', $q);
 
   settingStore.tab = route.name
   settingStore.animateTabs = true
 
-  if (authStore.user && authStore.user.roles.length > 0) {
-    // console.log("true");
-    // Abonniere den privaten Kanal für die Rolle des Benutzers
-    echo.private(`roles.${authStore.user.roles[0].id}`)
-      .listen('RolePermissionsUpdated', (data) => {
-        console.log('Role updated:', data.role);
-        authStore.updateBroadcastetPermissionChanges(data.role);
-        // Aktualisiere die Rollenliste im Store (optional)
-        // usersStore.updateRole(data.role);
-      });
-  } else {
-    console.error('Benutzer ist nicht authentifiziert oder hat keine Rolle.');
-  }
+  window.Echo.channel('roles')
+    .listen('RolePermissionsUpdated', (data) => {
+      console.log('Rolle aktualisiert:', data.role);
+      authStore.updateBroadcastetPermissionChanges(data.role);
+  });
+
+
+  // if (authStore.user && authStore.user.roles.length > 0) {
+  //   // Abonniere den privaten Kanal für die Rolle des Benutzers
+  //   echo.private(`roles.${authStore.user.roles[0].id}`)
+  //     .listen('RolePermissionsUpdated', (data) => {
+  //       console.log('Role updated:', data.role);
+  //       authStore.updateBroadcastetPermissionChanges(data.role);
+  //       // Aktualisiere die Rollenliste im Store (optional)
+  //       // usersStore.updateRole(data.role);
+  //     });
+  // } else {
+  //   console.error('Benutzer ist nicht authentifiziert oder hat keine Rolle.');
+  // }
 })
 
 onUnmounted(() => {
