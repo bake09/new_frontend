@@ -15,7 +15,7 @@
         <q-th key="avatar" :props="props">#</q-th>
         <q-th key="name" :props="props">Name</q-th>
         <q-th key="email" :props="props">Email</q-th>
-        <q-th key="email" :props="props">Rolle</q-th>
+        <q-th key="email" :props="props">Rolle(n)</q-th>
         <q-th key="email" :props="props">Aktiv?</q-th>
         <!-- <q-th v-for="col in props.cols" :key="col.name" :props="props">
           {{ col.label }}
@@ -44,7 +44,7 @@
         </td>
         <td key="name" :props="props">{{ props.row.name }}</td>
         <td key="email" :props="props">{{ props.row.email }}</td>
-        <td key="email" :props="props">{{ props.row.roles[0].name }}</td>
+        <td key="email" :props="props">{{ props.row.roles.map(role => role.name).join(', ') }}</td>
         <td key="email" :props="props">aktiv</td>
         <!-- <q-td v-for="col in props.cols" :key="col.name" :props="props">
           {{ col.value }}
@@ -74,7 +74,7 @@
     </template>
   </q-table>
 
-  <q-dialog v-if="usersStore.selectedUser" v-model="usersStore.showEditDialog" @hide="usersStore.selectedUser = null" :backdrop-filter="'brightness(60%)'">
+  <q-dialog v-if="usersStore.selectedUser" v-model="usersStore.showEditDialog" @hide="usersStore.selectedUser = null" :backdrop-filter="'brightness(60%)'" maximized transition-show="jump-up" transition-hide="jump-down">
     <q-card style="width: 800px;">
       <q-toolbar>
         <q-avatar>
@@ -184,18 +184,22 @@
                 v-model="usersStore.selectedUserRole"
                 :options="usersStore.returnAllRolesForSelect"
                 label="Role"
-                @update:model-value="selectChanged"
+                @update:model-value="usersStore.assignRole(usersStore.selectedUser.id, $event)"
               />
               <div class="text-caption q-my-none">enthaltene Rechte:</div>
-              <div class="q-my-none" >
-                <q-icon name="subdirectory_arrow_right"/>
-                <q-checkbox class="q-pr-sm" v-for="permission in usersStore.returnAllPermissionsForCheckboxes"
-                  dense
-                  disabled
-                  :key="permission.id"
-                  :label="permission.name"
-                  :model-value="usersStore.isPermissionSelected(permission)"
-                />
+              <div class="row q-my-none">
+                <div class="col-1">
+                  <q-icon name="subdirectory_arrow_right"/>
+                </div>
+                <div class="col-11">
+                  <q-checkbox class="q-pr-sm" v-for="permission in usersStore.returnAllPermissionsForCheckboxes"
+                    dense
+                    disabled
+                    :key="permission.id"
+                    :label="permission.name"
+                    :model-value="usersStore.isPermissionSelected(permission)"
+                  />
+                </div>
               </div>
             </q-card-section>
           </q-card>

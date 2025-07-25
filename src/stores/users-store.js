@@ -250,6 +250,16 @@ export const useUsersStore = defineStore('users', () => {
       console.error("Error updating role:", error);
     }
   }
+  const assignRole = async (userId, roleId) => {
+    console.log("Assigning role:", roleId, "to user:", userId);
+    try {
+      const res = await api.patch(`user/${userId}/assignRole`, { role: roleId });
+      console.log("Role assigned to user:", res.data);
+      await fetchUsers(); // Benutzer neu laden
+    } catch (error) {
+      console.error("Error assigning role to user:", error);
+    }
+  }
 
   // RETURN everything
   return {
@@ -286,6 +296,7 @@ export const useUsersStore = defineStore('users', () => {
     fetchRoles,
     isRoleSelected,
     isPermissionSelected,
+    assignRole,
 
   } 
 })

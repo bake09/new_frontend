@@ -84,16 +84,40 @@
   </q-dialog>
 
   <q-dialog v-model="showAddPermissionDialog">
-    <q-card style="min-width: 400px; max-width: 600px;">
-      <q-toolbar>
-        <q-toolbar-title>Add Permission</q-toolbar-title>
-        <q-btn flat round dense icon="close" v-close-popup />
-      </q-toolbar>
-      <q-card-section>
-        <!-- Add permission form goes here -->
-      </q-card-section>
-    </q-card>
-  
+    <q-layout view="hHh LpR lFf" container style="height: 500px" class="shadow-2" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+      <q-header>
+        <q-toolbar>
+          <q-toolbar-title>Add Permissions</q-toolbar-title>
+        </q-toolbar>
+      </q-header>
+
+      <q-page-container>
+        <q-page class="q-pa-md">
+          <q-input bottom-slots v-model="newPermission" label="permissionName_withUnderScore" dense>
+            <template v-slot:prepend>
+              <q-icon name="add" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="close" @click="newPermission = ''" class="cursor-pointer" />
+            </template>
+
+            <template v-slot:hint>
+              Resource_Method: e.g. "user_create"
+            </template>
+          </q-input>
+        </q-page>
+
+        <q-page-scroller position="bottom-right" >
+          <q-btn fab icon="keyboard_arrow_up" color="red" />
+        </q-page-scroller>
+      </q-page-container>
+        
+      <q-footer class="bg-white text-black">
+        <q-toolbar>
+          <q-btn label="Speichern"/>
+        </q-toolbar>
+      </q-footer>
+    </q-layout>
   </q-dialog>
 </template>
 
@@ -127,6 +151,7 @@ const addPermissions = () => {
 }
 
 const filter = ref('')
+const newPermission = ref('')
 </script>
 
 <style lang="sass">
