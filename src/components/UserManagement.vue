@@ -74,14 +74,19 @@
     </template>
   </q-table>
 
-  <q-dialog v-if="usersStore.selectedUser" v-model="usersStore.showEditDialog" @hide="usersStore.selectedUser = null" :backdrop-filter="'brightness(60%)'" maximized transition-show="jump-up" transition-hide="jump-down">
+  <q-dialog
+    v-if="usersStore.selectedUser"
+    v-model="usersStore.showEditDialog"
+    @hide="usersStore.selectedUser = null"
+    :backdrop-filter="'brightness(60%)'"
+    maximized
+    transition-show="jump-up"
+    transition-hide="jump-down"
+  >
     <q-card style="width: 800px;">
       <q-toolbar>
-        <q-avatar>
-          <!-- <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg"> -->
-          <q-icon name="edit" color="grey-7"/>
-        </q-avatar>
-        <q-toolbar-title><span class="text-weight-bold">{{usersStore.selectedUser.name}}</span> bearbeiten</q-toolbar-title>
+        <q-btn flat round dense icon="arrow_back" v-close-popup />
+          <q-toolbar-title><span class="text-weight-bold">{{usersStore.selectedUser.name}}</span> bearbeiten</q-toolbar-title>
         <q-btn flat round dense icon="close" v-close-popup />
       </q-toolbar>
       <q-tabs
@@ -184,8 +189,8 @@
                 v-model="usersStore.selectedUserRole"
                 :options="usersStore.returnAllRolesForSelect"
                 label="Role"
-                @update:model-value="usersStore.assignRole(usersStore.selectedUser.id, $event)"
               />
+                <!-- @update:model-value="usersStore.assignRole(usersStore.selectedUser.id, $event)" -->
               <div class="text-caption q-my-none">enthaltene Rechte:</div>
               <div class="row q-my-none">
                 <div class="col-1">
@@ -202,6 +207,10 @@
                 </div>
               </div>
             </q-card-section>
+            <q-separator />
+            <q-card-actions align="right">
+              <q-btn color="dark" icon="save" @click.prevent="usersStore.assignRole()" label="Speichern" />
+            </q-card-actions>
           </q-card>
         </q-tab-panel>
 
@@ -234,7 +243,7 @@ const usersStore = useUsersStore()
 
 const apiUrl = process.env.VUE_APP_API_URL.replace(/\/api\/?$/, '')
 
-const tab = ref('allgemein')
+const tab = ref('rollen')
 
 const editUser = (user) => {
   console.log('user :>> ', user)
