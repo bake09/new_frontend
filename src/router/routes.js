@@ -67,10 +67,18 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: 'users',
-        component: () => import('pages/UsersPage.vue'),
+        path: '/users',
         name: 'users',
+        component: () => import('pages/UsersPage.vue'),
+        props: true,
         meta: { requiresAuth: true },
+        children: [
+          {
+            path: ':id?/:tab?',
+            component: () => import('components/user/EditModal.vue'),
+            name: 'edit-modal',
+          }
+        ]
       },
       {
         path: 'userform',
@@ -90,9 +98,9 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: 'fahrzeugschein',
-        component: () => import('pages/FahrzeugscheinPage.vue'),
-        name: 'fahrzeugschein',
+        path: 'fahrzeuge',
+        component: () => import('pages/FahrzeugePage.vue'),
+        name: 'fahrzeuge',
         meta: { requiresAuth: true },
       }
     ]

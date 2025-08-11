@@ -5,9 +5,10 @@ import { api } from "boot/axios";
 export const useUserFormStore = defineStore('userForm', () => {
   // State
   const usersFound = ref([])
+  const results = ref([])
   const step1Form = ref({
     email: {
-      content: '',
+      content: 'basar.oekke@gmx.de',
       error: false,
       done: false
     },
@@ -45,6 +46,7 @@ export const useUserFormStore = defineStore('userForm', () => {
         const res = await api.post('/check-email', {email: email})
         console.log("check-email : ", res.data)
         if(res.data.length > 0){
+          results.value = res.data
           usersFound.value = res.data
           step1Form.value.email.done = true
         }
@@ -58,6 +60,7 @@ export const useUserFormStore = defineStore('userForm', () => {
   return {
     // State
     step1Form,
+    results,
 
     // Getters
 

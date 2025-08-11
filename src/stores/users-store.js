@@ -13,6 +13,7 @@ export const useUsersStore = defineStore('users', () => {
   const allRolesWithPermissions = ref([])
   const allPermissionsWithRoles = ref([])
   const currentRoleToEdit = ref([])
+  const editDialogTab = ref('')
 
   // Getters
   const roles = computed(() => {
@@ -279,6 +280,7 @@ export const useUsersStore = defineStore('users', () => {
     assignPermissionToRole,
     removePermissionFromRole,
     currentRoleToEdit,
+    editDialogTab,
 
     // Getters
     dynamicRoles,

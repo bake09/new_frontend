@@ -24,6 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
   const selectedImage = ref(null)
   const selectedImageUrl = ref(null)
   const selectedImageRatio = ref(null)
+  const urlToRedirectAfterLogin = ref(null)
   
   // getters
   const getProfileImage = computed(() => {
@@ -307,6 +308,7 @@ export const useAuthStore = defineStore('auth', () => {
     selectedImage,
     selectedImageUrl,
     selectedImageRatio,
+    urlToRedirectAfterLogin,
 
     // Getters
     getProfileImage,

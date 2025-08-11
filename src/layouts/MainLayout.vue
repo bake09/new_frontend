@@ -1,8 +1,8 @@
 <template>
   <q-layout view="hHh LpR fFf">
     <!-- <q-resize-observer @resize="onResize" /> -->
-    <q-header elevated>
-      <q-toolbar  class="q-px-sm" :class="$q.dark.isActive ? 'bg-blue-grey-10 text-white' : 'bg-white text-black'">
+    <q-header class="shadow-2">
+      <q-toolbar  class="q-px-sm" :class="$q.dark.isActive ? 'bg-blue-grey-10 text-white' : 'bg-blue-grey-1 text-black'">
         <q-btn
           dense
           flat
@@ -66,12 +66,12 @@
                 </q-item-section>
                 <q-item-section>Lobby</q-item-section>
               </q-item> -->
-              <q-item clickable v-close-popup to="roles" exact v-if="authStore.user">
+              <!-- <q-item clickable v-close-popup to="roles" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="settings" />
                 </q-item-section>
                 <q-item-section>Roles</q-item-section>
-              </q-item>
+              </q-item> -->
               <q-item clickable v-close-popup to="settings" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="settings" />
@@ -90,6 +90,12 @@
                 </q-item-section>
                 <q-item-section>Users</q-item-section>
               </q-item>
+              <q-item clickable v-close-popup to="fahrzeuge" exact v-if="authStore.user">
+                <q-item-section avatar>
+                  <q-icon name="toys" />
+                </q-item-section>
+                <q-item-section>Fahrzeuge</q-item-section>
+              </q-item>
               <q-item clickable v-close-popup to="logout" exact v-if="authStore.user">
                 <q-item-section avatar>
                   <q-icon name="logout" />
@@ -102,7 +108,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="settingStore.leftDrawerOpen" show-if-above bordered :width="240" :breakpoint="1025" class="mybgs">
+    <q-drawer v-model="settingStore.leftDrawerOpen" show-if-above bordered :width="240" class="mybgs">
       <q-list>
         <q-item-label header>Main Menue </q-item-label>
         <q-separator inset/>
@@ -124,7 +130,7 @@
       </q-list>
     </q-drawer>
 
-    <q-drawer show-if-above v-model="settingStore.rightDrawerOpen" bordered :width="240" :breakpoint="1025" side="right">
+    <q-drawer show-if-above v-model="settingStore.rightDrawerOpen" bordered :width="240" side="right">
       <q-list>
         <q-item-label header>Live Logs </q-item-label>
         <q-separator inset/>

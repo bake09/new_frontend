@@ -171,6 +171,7 @@
         </q-stepper-navigation>
       </template>
     </q-stepper>
+    <pre>{{ userFormStore.results }}</pre>
   </q-page>
 </template>
 

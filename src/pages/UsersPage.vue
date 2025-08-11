@@ -36,18 +36,17 @@
 </template>
 
 <script setup>
-import UserManagement from 'src/components/UserManagement.vue';
-import RolesAndPermissionsTable from 'src/components/RolesAndPermissionsTable.vue';
-import { onActivated, ref } from 'vue';
-const tab = ref('benutzer')
-// const tab = ref('rollen')
+  import UserManagement from 'src/components/UserManagement.vue';
+  import RolesAndPermissionsTable from 'src/components/RolesAndPermissionsTable.vue';
+  import { onActivated, ref } from 'vue';
+  const tab = ref('benutzer')
+  // const tab = ref('rollen')3 2
 
+  import { useUsersStore } from 'src/stores/users-store'
+  const usersStore = useUsersStore()
 
-import { useUsersStore } from 'src/stores/users-store'
-const usersStore = useUsersStore()
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-
-const result = ref(null)
+  const result = ref(null)
 </script>
