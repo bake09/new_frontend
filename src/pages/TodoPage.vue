@@ -35,9 +35,12 @@
         <q-spinner size="50px" color="primary" />
       </q-inner-loading>
       
-      <q-list v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" v-auto-animate="{ duration: 150 }" class="q-pa-sm">
-        <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo"/>
-      </q-list>
+      <q-scroll-area v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" style="height: calc(100vh - 154px);">
+      
+        <q-list  v-auto-animate="{ duration: 150 }" class="q-pa-sm">
+          <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo"/>
+        </q-list>
+      </q-scroll-area>
 
       <q-list v-else  class="q-pa-sm">
         <TodoItemSkeleton />
@@ -108,7 +111,6 @@ import TodoItemSkeleton from 'src/components/Todo/TodoItemSkeleton.vue';
 
 import TodoSorting from 'src/components/Todo/TodoSorting.vue';
 import TodoFilter from 'src/components/Todo/TodoFilter.vue';
-
 
 const dialogVisible = ref(true)
 

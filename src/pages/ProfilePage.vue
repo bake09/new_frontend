@@ -142,6 +142,7 @@ const uploadImages = async () => {
         message: 'Images uploaded successfully!',
       })
       images.value = []
+      fetchImages()
     } catch (error) {+
       console.error('error :>> ', error);
       Notify.create({

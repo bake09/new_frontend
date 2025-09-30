@@ -7,7 +7,7 @@
           class="q-gutter-md"
         >
         <div class="text-h6 text-center">Reset Password Page</div>
-        <q-input dense outlined clearable clear-icon="close" v-model="authStore.loginForm.email" label="Email" />
+        <q-input dense outlined clearable clear-icon="close" v-model="email" label="Email" />
         <div class="row">
           <q-btn label="Email Senden" type="submit" class="col" color="black"/>
         </div>
@@ -20,14 +20,25 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useAuthStore } from "stores/auth-store";
 const authStore = useAuthStore()
 
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
+import { api } from '../../boot/axios'
+
+const email = ref('test@test.com')
+
 const handleResetPassword = async () => {
   console.log("handleResetPassword triggered");
+
+  api.post('auth/token/forgot-password', {email: email.value}).then(res => {
+    console.log('res :>> ', res);
+  }).catch(err => {
+    console.log('err :>> ', err);
+  })
 }
 
 const handleReset = () => {

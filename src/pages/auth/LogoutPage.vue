@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page class="flex flex-center" padding  >
     <!-- <q-inner-loading
       :showing="true"
       label="Loggin out..."

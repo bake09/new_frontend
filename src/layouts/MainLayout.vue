@@ -118,7 +118,7 @@
           v-bind="link"
           v-show="link.requiresAuth && authStore.user"
         />
-        <!-- <q-item clickable @click="authStore.handleTokenLogout"  v-show="authStore.user">
+        <q-item clickable @click="authStore.handleTokenLogout" v-show="authStore.user">
           <q-item-section avatar>
             <q-icon name="logout"/>
           </q-item-section>
@@ -126,24 +126,12 @@
             <q-item-label>Logout</q-item-label>
             <q-item-label caption>Function</q-item-label>
           </q-item-section>
-        </q-item> -->
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-drawer show-if-above v-model="settingStore.rightDrawerOpen" bordered :width="240" side="right">
-      <q-list>
-        <q-item-label header>Live Logs </q-item-label>
-        <q-separator inset/>
-        <q-item clickable @click="authStore.handleTokenLogout"  v-show="authStore.user">
-          <q-item-section avatar>
-            <q-icon name="logout" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Logout</q-item-label>
-            <q-item-label caption>Function</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <LiveLogs />
     </q-drawer>
     
     <q-page-container >
@@ -200,6 +188,7 @@ import SettingsPage from 'src/pages/SettingsPage.vue';
 
 import EssentialLink from 'components/EssentialLink.vue'
 import TodoInput from 'src/components/Todo/TodoInput.vue';
+import LiveLogs from 'src/components/global/LiveLogs.vue'
 
 import { useSettingStore } from 'src/stores/settings-store';
 const settingStore = useSettingStore()
@@ -251,16 +240,16 @@ watch(() => $q.dark.isActive, (value) => {
 )
 
 onMounted(async() => {
-
   settingStore.tab = route.name
   settingStore.animateTabs = true
 
-  window.Echo.channel('roles')
+  echo.channel('roles')
     .listen('RolePermissionsUpdated', (data) => {
       console.log('Rolle aktualisiert:', data.role);
       authStore.updateBroadcastetPermissionChanges(data.role);
   });
 
+  
 
   // if (authStore.user && authStore.user.roles.length > 0) {
   //   // Abonniere den privaten Kanal für die Rolle des Benutzers

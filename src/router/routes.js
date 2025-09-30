@@ -1,5 +1,21 @@
 const routes = [
   {
+    path: '/auth',
+    component: () => import('layouts/AuthLayout.vue'),
+    children: [
+      { path: 'login', component: () => import('pages/auth/LoginPage.vue'), name: 'login' },
+      { path: 'register', component: () => import('pages/auth/RegisterPage.vue'), name: 'register' },
+      { path: 'forgot-password', component: () => import('pages/auth/ForgotPasswordPage.vue'), name: 'forgot-password' },
+      { path: 'reset-password', component: () => import('pages/auth/ResetPasswordPage.vue'), name: 'reset-password' },
+      {
+        path: 'logout',
+        component: () => import('pages/auth/LogoutPage.vue'),
+        name: 'logout',
+        meta: { requiresAuth: true },
+      },
+    ]
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -10,9 +26,27 @@ const routes = [
         meta: { requiresAuth: true },
       },
       { 
+        path: '/cdr',
+        component: () => import('src/pages/CdrPage.vue'),
+        name: 'cdr',
+        meta: { requiresAuth: true },
+      },
+      { 
+        path: '/cdr-import',
+        component: () => import('src/pages/CdrImportPage.vue'),
+        name: 'cdr-import',
+        meta: { requiresAuth: true },
+      },
+      { 
         path: '/test',
         component: () => import('pages/TestPage.vue'),
         name: 'test',
+        meta: { requiresAuth: true },
+      },
+      { 
+        path: '/test2',
+        component: () => import('pages/TestPage2.vue'),
+        name: 'test2',
         meta: { requiresAuth: true },
       },
       { 
@@ -45,21 +79,26 @@ const routes = [
         name: 'roles',
         meta: { requiresAuth: true },
       },
-      {
-        path: 'login',
-        component: () => import('pages/auth/LoginPage.vue'),
-        name: 'login'
-      },
-      {
-        path: 'register',
-        component: () => import('pages/auth/RegisterPage.vue'),
-        name: 'register'
-      },
-      {
-        path: 'forgot-password',
-        component: () => import('pages/auth/ForgotPasswordPage.vue'),
-        name: 'forgot-password'
-      },
+      // {
+      //   path: 'login',
+      //   component: () => import('pages/auth/LoginPage.vue'),
+      //   name: 'login'
+      // },
+      // {
+      //   path: 'register',
+      //   component: () => import('pages/auth/RegisterPage.vue'),
+      //   name: 'register'
+      // },
+      // {
+      //   path: 'forgot-password',
+      //   component: () => import('pages/auth/ForgotPasswordPage.vue'),
+      //   name: 'forgot-password'
+      // },
+      // {
+      //   path: 'reset-password',
+      //   component: () => import('pages/auth/ResetPasswordPage.vue'),
+      //   name: 'reset-password'
+      // },
       {
         path: 'profile',
         component: () => import('pages/ProfilePage.vue'),
@@ -92,15 +131,21 @@ const routes = [
         name: 'forbidden'
       },
       {
-        path: 'logout',
-        component: () => import('pages/auth/LogoutPage.vue'),
-        name: 'logout',
+        path: 'fahrzeuge',
+        component: () => import('src/pages/VehiclePage.vue'),
+        name: 'fahrzeuge',
         meta: { requiresAuth: true },
       },
       {
-        path: 'fahrzeuge',
-        component: () => import('pages/FahrzeugePage.vue'),
-        name: 'fahrzeuge',
+        path: 'nachlasstypen',
+        component: () => import('src/pages/VehiclePurchDiscTypesPage.vue'),
+        name: 'nachlasstypen',
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'einkaufsnachlass',
+        component: () => import('src/pages/VehiclePurchDiscountsPage.vue'),
+        name: 'einkaufsnachlass',
         meta: { requiresAuth: true },
       }
     ]

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { api } from "boot/axios";
 import { LocalStorage, Notify } from 'quasar'
+import { echo } from "../boot/echo";
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -155,7 +156,7 @@ export const useAuthStore = defineStore('auth', () => {
       LocalStorage.removeItem('user')
       LocalStorage.removeItem('chats')
       isAuthProceeding.value.loading = false
-      this.router.replace('/login')
+      this.router.replace({name: 'login'})
       Notify.create({
         position: 'top',
         progress: true, 
@@ -192,7 +193,7 @@ export const useAuthStore = defineStore('auth', () => {
       LocalStorage.removeItem('token')
       LocalStorage.removeItem('chats')
       isAuthProceeding.value.loading = false
-      this.router.replace('/login')
+      this.router.replace({name: 'login'})
       Notify.create({
         position: 'top',
         progress: true, 
@@ -221,7 +222,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function clearUser() {
     LocalStorage.removeItem('user')
     user.value = null
-    this.router.replace('/login')
+    this.router.replace({name: 'login'})
   }
   const handleImageUpload = (event) => {
     const target = event.target
@@ -288,6 +289,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
   const leaveOnlineUsersChannel = () => {
     Echo.leave('users.1')
+
   }
   const updateBroadcastetPermissionChanges = (role) => {
     console.log('role :>> ', role);

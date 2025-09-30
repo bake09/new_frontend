@@ -26,7 +26,8 @@ module.exports = configure(function (/* ctx */) {
       'i18n',
       'axios',
       'router',
-      'autoanimate'
+      'autoanimate',
+      'vue-konva'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

@@ -75,6 +75,7 @@
       <!-- Table Header -->
       <template v-slot:header="props">
         <q-tr :props="props">
+          <q-th auto-width />
           <q-th v-for="col in vehicleStore.visibleColumns" :key="col" :props="props">
             <!-- {{ console.log('props :>> ', props) }} -->
             {{ col }}
@@ -89,6 +90,15 @@
       <!-- Table Body -->
       <template v-slot:body="props">
         <q-tr :props="props">
+          <q-td auto-width>
+            <q-btn
+              size="sm"
+              round
+              dense
+              @click="props.expand = !props.expand"
+              :icon="props.expand ? 'remove' : 'add'"
+            />
+          </q-td>
           <td v-for="col in vehicleStore.visibleColumns" :key="col" :props="props">{{ props.row[col] }}</td>
           <q-td auto-width align="right">
             <q-btn
@@ -100,6 +110,20 @@
               color="primary"
               @click="vehicleStore.setSelectedVehicle(props.row)"
             />
+          </q-td>
+        </q-tr>
+        <!-- Expanded row content -->
+        <q-tr v-show="props.expand" :props="props">
+          <q-td colspan="100%">
+              <q-tr v-for="discount in props.row.purch_discounts" :key="discount.id" :class="discount.AMOUNT > 600 ? 'bg-red-13' : 'bg-green-13'" class="row">
+                <q-td>Fahrzeugnummer: <span class="text-weight-bold">{{ discount.VEHICLE_NUMBER }}</span></q-td>
+                <q-td>Nachlass Cd.: <span class="text-weight-bxold">{{ discount.DISCOUNT_CD }}</span></q-td>
+                <q-td>Anlagedatum: <span class="text-weight-bold">{{ discount.DATE }}</span></q-td>
+                <q-td>Betrag: <span class="text-weight-bold">{{ discount.AMOUNT }}</span></q-td>
+                <q-td>Status: <span class="text-weight-bold">{{ discount.STATUS_X }}</span></q-td>
+                <q-td>Fahrgestellnummer: <span class="text-weight-bold">{{ discount.CHASSIS_NO_MODIF }}</span></q-td>
+                <q-td>Belegnr.: <span class="text-weight-bold">{{ discount.VOUCHER_NUMBER_X }}</span></q-td>
+              </q-tr>
           </q-td>
         </q-tr>
       </template>
