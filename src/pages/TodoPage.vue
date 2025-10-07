@@ -35,7 +35,7 @@
         <q-spinner size="50px" color="primary" />
       </q-inner-loading>
       
-      <q-scroll-area v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" style="height: calc(100vh - 154px);">
+      <q-scroll-area v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" style="height: calc(100vh - 154px);" :horizontal-offset="[0, 2]" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
       
         <q-list  v-auto-animate="{ duration: 150 }" class="q-pa-sm">
           <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo"/>
@@ -94,7 +94,6 @@ import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
 import { usePushStore } from 'src/stores/push-store';
 const pushStore = usePushStore()
-
 
 import TodoInput from 'src/components/Todo/TodoInput.vue';
 

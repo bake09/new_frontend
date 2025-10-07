@@ -20,7 +20,6 @@ export const useSettingStore = defineStore('settings', () => {
   ])
   
   const thumbStyle = ref({
-    right: '4px',
     borderRadius: '7px',
     backgroundColor: '#027be3',
     width: '4px',
@@ -28,7 +27,6 @@ export const useSettingStore = defineStore('settings', () => {
   })
 
   const barStyle = ref({
-    right: '2px',
     borderRadius: '9px',
     backgroundColor: '#027be3',
     width: '8px',

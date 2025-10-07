@@ -7,12 +7,7 @@ const routes = [
       { path: 'register', component: () => import('pages/auth/RegisterPage.vue'), name: 'register' },
       { path: 'forgot-password', component: () => import('pages/auth/ForgotPasswordPage.vue'), name: 'forgot-password' },
       { path: 'reset-password', component: () => import('pages/auth/ResetPasswordPage.vue'), name: 'reset-password' },
-      {
-        path: 'logout',
-        component: () => import('pages/auth/LogoutPage.vue'),
-        name: 'logout',
-        meta: { requiresAuth: true },
-      },
+      { path: 'logout', component: () => import('pages/auth/LogoutPage.vue'), name: 'logout', meta: { requiresAuth: true }, },
     ]
   },
   {
@@ -23,6 +18,12 @@ const routes = [
         path: '',
         component: () => import('src/pages/TodoPage.vue'),
         name: 'home',
+        meta: { requiresAuth: true },
+      },
+      { 
+        path: '/blank',
+        component: () => import('src/pages/BlankPage.vue'),
+        name: 'blank',
         meta: { requiresAuth: true },
       },
       { 
