@@ -32,6 +32,7 @@
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
+    <q-btn label="Show Q-Notify" @click="showNotify" />
   </q-page>
 </template>
 
@@ -49,4 +50,13 @@
   const { t } = useI18n()
 
   const result = ref(null)
+
+  import { Notify } from 'quasar'
+  const showNotify = () => {
+    Notify.create({
+      position: 'top',
+      message: 'Danger, Will Robinson! Danger!',
+      timeout: 0
+    })
+  }
 </script>

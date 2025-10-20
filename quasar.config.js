@@ -27,7 +27,8 @@ module.exports = configure(function (/* ctx */) {
       'axios',
       'router',
       'autoanimate',
-      'vue-konva'
+      'vue-konva',
+      'notify-swipe'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

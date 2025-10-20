@@ -11,6 +11,7 @@
         <div class="row flex">
           <TodoFilter />
           <q-space />
+          <q-btn label="Top" @click="scrollToTop"/>
           <TodoSorting />
         </div>
       </q-banner>
@@ -35,9 +36,8 @@
         <q-spinner size="50px" color="primary" />
       </q-inner-loading>
       
-      <q-scroll-area v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" style="height: calc(100vh - 154px);" :horizontal-offset="[0, 2]" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
-      
-        <q-list  v-auto-animate="{ duration: 150 }" class="q-pa-sm">
+      <q-scroll-area ref="scrollAreaRef" v-if="todoStore.todos.length && !authStore.isAuthProceeding.loading" style="height: calc(100vh - 154px);" :horizontal-offset="[0, 2]" :thumb-style="settingStore.thumbStyle" :bar-style="settingStore.barStyle">
+        <q-list v-auto-animate="{ duration: 150 }" class="q-pa-sm">
           <TodoItem v-for="todo in todoStore.filteredTodos" :key="todo.id" :todo="todo"/>
         </q-list>
       </q-scroll-area>
@@ -169,6 +169,11 @@ onUnmounted(() => {
 })
 
 const date = ref('2025-02-11 12:44')
+
+const scrollAreaRef = ref(null)
+const scrollToTop = () => {
+  console.log('fired :>> ',scrollAreaRef.value.setScrollPosition ('vertical', 0, 120));
+}
 </script>
 
 <style>

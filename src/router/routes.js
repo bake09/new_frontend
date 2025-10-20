@@ -6,7 +6,7 @@ const routes = [
       { path: 'login', component: () => import('pages/auth/LoginPage.vue'), name: 'login' },
       { path: 'register', component: () => import('pages/auth/RegisterPage.vue'), name: 'register' },
       { path: 'forgot-password', component: () => import('pages/auth/ForgotPasswordPage.vue'), name: 'forgot-password' },
-      { path: 'reset-password', component: () => import('pages/auth/ResetPasswordPage.vue'), name: 'reset-password' },
+      { path: 'reset-password/:token?', component: () => import('pages/auth/ResetPasswordPage.vue'), name: 'reset-password' },
       { path: 'logout', component: () => import('pages/auth/LogoutPage.vue'), name: 'logout', meta: { requiresAuth: true }, },
     ]
   },
