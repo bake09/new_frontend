@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch, nextTick } from 'vue';
 import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
 import { usePushStore } from 'src/stores/push-store';
@@ -140,16 +140,27 @@ watch(() => todoStore.bottomSheetShowing, (newVal) => {
   }
 }, {deep: true})
 
+const scrollAreaRef = ref(null)
+const scrollToTop = () => {
+  console.log('fired :>> ', scrollAreaRef.value.setScrollPosition ('vertical', 0, 120));
+}
 onMounted(async () => {
   await pushStore.getSubscription()
   todoStore.joinAndListenOnlineUsersChannel()
   todoStore.getTodos()
 
   echo.channel(`todochannel.1`)
-    .listen('.addTodo', (payload) => {
+    .listen('.addTodo', async (payload) => {
       console.log('payload addTodo :>> ', payload);
       todoStore.todos.push(payload.todo)
-      // animateScroll()
+
+      await nextTick()
+      console.log('scrollAreaRef.value :>> ', scrollAreaRef.value)
+      scrollToTop()
+      // setTimeout(() => {
+      //   scrollAreaRef.value.setScrollPosition ('vertical', scrollAreaRef.value.getScrollDimensions().scrollHeight, 300)
+      // }, 100);
+      // scrollToTop()
     })
     .listen('.toggleTodo', (payload) => {
       console.log('payload :>> ', payload);
@@ -170,10 +181,6 @@ onUnmounted(() => {
 
 const date = ref('2025-02-11 12:44')
 
-const scrollAreaRef = ref(null)
-const scrollToTop = () => {
-  console.log('fired :>> ',scrollAreaRef.value.setScrollPosition ('vertical', 0, 120));
-}
 </script>
 
 <style>
