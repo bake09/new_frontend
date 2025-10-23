@@ -41,9 +41,9 @@ export const useSettingStore = defineStore('settings', () => {
 
   const linksList = ref([
     { title: 'Home', caption: 'Home Page', icon: 'home', to: '/', requiresAuth: true },
-    { title: 'Cdr', caption: 'Cdr Page', icon: 'home', to: '/cdr', requiresAuth: true },
-    { title: 'Cdr-Import', caption: 'Cdr Import Page', icon: 'home', to: '/cdr-import', requiresAuth: true },
-    { title: 'Test2', caption: 'Test2 Page', icon: 'home', to: '/test2', requiresAuth: true },
+    // { title: 'Cdr', caption: 'Cdr Page', icon: 'home', to: '/cdr', requiresAuth: true },
+    // { title: 'Cdr-Import', caption: 'Cdr Import Page', icon: 'home', to: '/cdr-import', requiresAuth: true },
+    // { title: 'Test2', caption: 'Test2 Page', icon: 'home', to: '/test2', requiresAuth: true },
     { title: 'Login', caption: 'Login Page', icon: 'person', to: 'login', requiresAuth: false },
     // { title: 'Calendar', caption: 'Calendar Page', icon: 'calendar_month', to: 'calendar', requiresAuth: true },
     // { title: 'Lobby', caption: 'Lobby Page', icon: 'settings', to: 'lobby', requiresAuth: true },
@@ -53,9 +53,9 @@ export const useSettingStore = defineStore('settings', () => {
     { title: 'Profile', caption: 'Profile Page', icon: 'person', to: 'profile', requiresAuth: true },
     { title: 'Users', caption: 'Users Page', icon: 'group', to: 'users', requiresAuth: true },
     // { title: 'UserForm', caption: 'User Form', icon: 'person', to: 'userform', requiresAuth: true },
-    { title: 'Fahrzeuge', caption: 'Fahrzeuge', icon: 'toys', to: 'fahrzeuge', requiresAuth: true },
-    { title: 'Nachlasstypen', caption: 'Nachlasstypen', icon: 'toys', to: 'nachlasstypen', requiresAuth: true },
-    { title: 'Einkaufsnachlass', caption: 'Einkaufsnachlass', icon: 'toys', to: 'einkaufsnachlass', requiresAuth: true },
+    // { title: 'Fahrzeuge', caption: 'Fahrzeuge', icon: 'toys', to: 'fahrzeuge', requiresAuth: true },
+    // { title: 'Nachlasstypen', caption: 'Nachlasstypen', icon: 'toys', to: 'nachlasstypen', requiresAuth: true },
+    // { title: 'Einkaufsnachlass', caption: 'Einkaufsnachlass', icon: 'toys', to: 'einkaufsnachlass', requiresAuth: true },
     // { title: 'Logout', caption: 'Logout Page', icon: 'logout', to: '/logout', requiresAuth: true },
   ])
 

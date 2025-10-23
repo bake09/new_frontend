@@ -21,6 +21,14 @@ export const useActivityStore = defineStore('activity', () => {
     logListVisible.value = !logListVisible.value
   }
 
+  const joinActivitiesChannel = () => {
+    // Placeholder for future implementation
+  }
+
+  const leaveActivitiesChannel = () => {
+    // Placeholder for future implementation
+  }
+
   // Return Everything
   return {
     // State

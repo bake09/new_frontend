@@ -1,28 +1,28 @@
 <template>
   <q-list>
       <q-item clickable @click="activityStore.toggleActivityListVisibility">
-          <q-item-section>
-              <q-item-label >Live Logs</q-item-label>
-              <q-item-label caption>Shows all App - activities</q-item-label>
-          </q-item-section>
-          <q-item-section side top class="self-center">
-              <q-toggle
-                  dense
-                  v-model="activityStore.logListVisible"
-                  checked-icon="visibility"
-                  color="green"
-                  unchecked-icon="visibility_off"
-              />
-          </q-item-section>
+        <q-item-section>
+            <q-item-label >Live Logs</q-item-label>
+            <q-item-label caption>Shows all App - activities</q-item-label>
+        </q-item-section>
+        <q-item-section side top class="self-center">
+            <q-toggle
+                dense
+                v-model="activityStore.logListVisible"
+                checked-icon="visibility"
+                color="green"
+                unchecked-icon="visibility_off"
+            />
+        </q-item-section>
       </q-item>
       <q-item dense clickable @click="activityStore.clearActivities">
-          <q-item-section>
-              <q-item-label caption>Clear/Reset activities</q-item-label>
-          </q-item-section>
-          <q-item-section side  class="self-center">
-              <q-btn icon="delete" rounded dense flat/>
-              <!-- <q-btn icon="delete_sweep" rounded dense flat/> -->
-          </q-item-section>
+        <q-item-section>
+            <q-item-label caption>Clear/Reset activities</q-item-label>
+        </q-item-section>
+        <q-item-section side  class="self-center">
+            <q-btn icon="delete" rounded dense flat/>
+            <!-- <q-btn icon="delete_sweep" rounded dense flat/> -->
+        </q-item-section>
       </q-item>
       <q-separator />
   </q-list>
@@ -37,7 +37,7 @@
               <!-- <q-icon name="warning_amber" color="red"/> {{ activity.properties.item }} -->
             </q-item-label>
             <q-item-label class="q-mt-none">
-              <q-badge color="green-5" style="font-size: 11px;">
+              <q-badge color="blue-5" style="font-size: 11px;">
                 {{ activity.properties.action.type }} <q-icon name="check" class="q-ml-xs" />
               </q-badge>
             </q-item-label>
@@ -121,6 +121,7 @@ const trigger = ref(0)
 let intervalId
 
 onMounted(() => {
+  console.log("MOUNTED");
   // echo.channel('activities')
   echo.private('activities')
     .listen('ActivityCreated', (e) => {
@@ -136,6 +137,7 @@ onMounted(() => {
     }, 60 * 1000)  // jede Minute
 })
 onUnmounted(() => {
+  console.log("UNMOUNTED");
   if (intervalId != null) {
     clearInterval(intervalId)
   }
