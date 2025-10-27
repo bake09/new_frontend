@@ -95,16 +95,13 @@ export const useUsersStore = defineStore('users', () => {
   const returnAllRolesForSelect = computed(() => {
     return allRolesWithPermissions.value.map(role => ({
       label: role.name,
-      value: role.id,
+      id: role.id,
       permissions: role.permissions.map(permission => ({
         id: permission.id,
-        name: permission.name,
-        isChecked: true
+        name: permission.name
       })),
     }));
   });
-
-  
   const returnAllPermissionsForCheckboxes = computed(() => {
     return allPermissionsWithRoles.value.map(permission => ({
       id: permission.id,
@@ -262,6 +259,20 @@ export const useUsersStore = defineStore('users', () => {
       console.error("Error assigning role to user:", error);
     }
   }
+  const syncPermissionsToRole = async (roleId) => {
+    isLoading.value = true;
+    try {
+      const res = await api.post(`roles/${roleId}/syncPermissions`, {
+        permissions: selectedRole.value.permissions
+      });
+      console.log("Permissions synced to role:", res.data);
+      isLoading.value = false;
+      // await fetchRoles(); // Rollen neu laden
+    } catch (error) {
+      console.error("Error syncing permissions to role:", error);
+      isLoading.value = false;
+    }
+  } 
 
   // RETURN everything
   return {
@@ -300,6 +311,7 @@ export const useUsersStore = defineStore('users', () => {
     isRoleSelected,
     isPermissionSelected,
     assignRole,
+    syncPermissionsToRole,
 
   } 
 })
