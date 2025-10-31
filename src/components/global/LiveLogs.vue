@@ -26,7 +26,7 @@
       </q-item>
       <q-separator />
   </q-list>
-  <q-scroll-area class="scroll-fade" style="height: calc(100vh - 186px); max-width: auto;" @scroll="scrollBaby">
+  <q-scroll-area class="scroll-fade" style="height: calc(100vh - 187px); max-width: auto;" @scroll="scrollBaby">
     <q-list v-auto-animate="{ duration: 150 }">
       <div v-for="activity in activityStore.activities" v-if="activityStore.logListVisible" :key="activity.id">
         <q-item class="q-py-xs">

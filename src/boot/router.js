@@ -9,12 +9,12 @@ export default boot(async ({ router }) => {
       return next({ name: 'login' })
     }
 
-    // 🚪 Eingeloggte dürfen nicht zu Login/Register
+    // Eingeloggte dürfen nicht zu Login/Register
     if (user && ['login', 'register', 'forgot-password'].includes(to.name)) {
       return next(from.path)
     }
 
-    // 🛡️ Rollenprüfung
+    // Rollenprüfung
     if (to.meta.roles && Array.isArray(to.meta.roles)) {
       const userRoles = user?.roles?.map(r => r.name.toLowerCase()) || []
       const requiredRoles = to.meta.roles.map(r => r.toLowerCase())
