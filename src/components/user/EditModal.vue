@@ -123,7 +123,8 @@
                     outlined
                     v-model="usersStore.selectedUserRole"
                     :options="usersStore.returnAllRolesForSelect"
-                    label="Role"
+                    emit-value
+                    label="Rolle"
                   />
                     <!-- @update:model-value="usersStore.assignRole(usersStore.selectedUser.id, $event)" -->
                   <div class="text-caption q-my-none">enthaltene Rechte:</div>
@@ -180,7 +181,9 @@
   const apiUrl = process.env.VUE_APP_API_URL.replace(/\/api\/?$/, '')
   
   const closeDialog = () => {
+    console.log("closeDialog triggered");
     usersStore.selectedUser = null
+    usersStore.selectedUserRole = null
     usersStore.editDialogTab = 'allgemein'
     router.replace({ name: 'users', params: { id: null, tab: null } }) 
   }

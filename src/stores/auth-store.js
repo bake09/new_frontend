@@ -294,6 +294,8 @@ export const useAuthStore = defineStore('auth', () => {
   const updateBroadcastetPermissionChanges = (role) => {
     console.log('role :>> ', role);
     LocalStorage.removeItem('user')
+    user.value.roles[0].id = role.id
+    user.value.roles[0].name = role.name
     user.value.roles[0].permissions = role.permissions
     user.value.permissions = role.permissions
     LocalStorage.setItem('user', user.value)

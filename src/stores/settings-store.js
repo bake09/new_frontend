@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useAccessControl } from 'src/composables/useAccessControl'
+const { hasRole } = useAccessControl()
 
 export const useSettingStore = defineStore('settings', () => {
   // State
@@ -53,11 +55,19 @@ export const useSettingStore = defineStore('settings', () => {
     { title: 'Profile', caption: 'Profile Page', icon: 'person', to: 'profile', requiresAuth: true },
     { title: 'Users', caption: 'Users Page', icon: 'group', to: 'users', requiresAuth: true },
     // { title: 'UserForm', caption: 'User Form', icon: 'person', to: 'userform', requiresAuth: true },
-    { title: 'Fahrzeuge', caption: 'Fahrzeuge', icon: 'toys', to: 'fahrzeuge', requiresAuth: true },
+    { title: 'Fahrzeuge', caption: 'Fahrzeuge', icon: 'toys', to: 'fahrzeuge', requiresAuth: true, roles: ['super-admin', 'admin'] },
     // { title: 'Nachlasstypen', caption: 'Nachlasstypen', icon: 'toys', to: 'nachlasstypen', requiresAuth: true },
     // { title: 'Einkaufsnachlass', caption: 'Einkaufsnachlass', icon: 'toys', to: 'einkaufsnachlass', requiresAuth: true },
     // { title: 'Logout', caption: 'Logout Page', icon: 'logout', to: '/logout', requiresAuth: true },
   ])
+
+  const visibleLinks = computed(() => {
+    return linksList.value.filter(link => {
+      if (!link.requiresAuth) return true
+      if (link.roles && !hasRole(link.roles)) return false
+      return true
+    })
+  })
 
   // Actions
   const toggleLeftDrawer = () => {
@@ -80,6 +90,7 @@ export const useSettingStore = defineStore('settings', () => {
     // Getters
     isExternalRoute,
     linksList,
+    visibleLinks,
 
     // Actions
     toggleLeftDrawer,

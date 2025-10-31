@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-  import { watch } from 'vue'
+  import { watch, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   const route = useRoute()
   const router = useRouter()
@@ -90,14 +90,14 @@
   const apiUrl = process.env.VUE_APP_API_URL.replace(/\/api\/?$/, '')
 
   const editUser = async (user) => {
+    console.log('Editing user:', user);
     usersStore.selectedUser = user
     usersStore.selectedUserRole = { 
       label: user.roles[0].name, 
-      value: user.roles[0].id,
+      id: user.roles[0].id,
       permissions: user.roles[0].permissions.map(permission => ({
         id: permission.id,
-        name: permission.name,
-        isChecked: true
+        name: permission.name
       }))
     }
     await router.replace({ name: 'edit-modal', params: { id: usersStore.selectedUser.id, tab: usersStore.editDialogTab } })
@@ -121,4 +121,8 @@
     },
     { immediate: true }
   )
+
+  onMounted(async () => {
+    await usersStore.fetchRoles()
+  })
 </script>

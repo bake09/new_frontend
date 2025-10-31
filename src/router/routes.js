@@ -18,7 +18,7 @@ const routes = [
         path: '',
         component: () => import('src/pages/TodoPage.vue'),
         name: 'home',
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true},
       },
       { 
         path: '/blank',
@@ -135,7 +135,7 @@ const routes = [
         path: 'fahrzeuge',
         component: () => import('src/pages/VehiclePage.vue'),
         name: 'fahrzeuge',
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, roles: ['superadmin', 'admin'] },
       },
       {
         path: 'nachlasstypen',

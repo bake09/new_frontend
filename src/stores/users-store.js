@@ -249,8 +249,10 @@ export const useUsersStore = defineStore('users', () => {
     }
   }
   const assignRole = async () => {
-    const roleId = selectedUserRole.value.value;
+    const roleId = selectedUserRole.value.id;
     const userId = selectedUser.value.id;
+    console.log('roleId :>> ', roleId);
+    console.log('userId :>> ', userId);
     try {
       const res = await api.patch(`user/${userId}/assignRole`, { role: roleId });
       console.log("Role assigned to user:", res.data);

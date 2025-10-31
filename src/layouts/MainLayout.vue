@@ -110,7 +110,7 @@
 
     <q-drawer v-model="settingStore.leftDrawerOpen" show-if-above bordered :width="240" class="mybgs">
       <q-list>
-        <q-item-label header>Main Menue </q-item-label>
+        <q-item-label header>Main Menue</q-item-label>
         <q-separator inset/>
         <EssentialLink
           v-for="link in settingStore.linksList"
@@ -245,7 +245,6 @@ onMounted(async() => {
 
   echo.channel('roles')
     .listen('RolePermissionsUpdated', (data) => {
-      console.log('Rolle aktualisiert:', data.role);
       authStore.updateBroadcastetPermissionChanges(data.role);
   });
 

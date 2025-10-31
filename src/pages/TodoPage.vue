@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { onActivated, onDeactivated, onMounted, onUnmounted, ref, watch, nextTick } from 'vue';
+import { onMounted, onUnmounted, ref, watch, nextTick } from 'vue';
 import { useTodoStore } from 'src/stores/todo-store';
 const todoStore = useTodoStore()
 import { usePushStore } from 'src/stores/push-store';

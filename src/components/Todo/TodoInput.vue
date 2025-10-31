@@ -1,6 +1,6 @@
 <template>
-    <q-footer elevated class="q-pa-xs" :class="$q.dark.isActive ? 'bg-blue-grey-10' : 'bg-white'">
-        <q-input dense rounded outlined  placeholder="Label" clearable clear-icon="close" v-model="todoStore.newTodo" ref="inputRef" autocomplete="off" @keydown.enter="addTodo()">
+    <q-footer bordered class="q-pa-xs" :class="$q.dark.isActive ? 'bg-blue-grey-10' : 'bg-white'">
+        <q-input dense rounded outlined  placeholder="Neues Todo" clearable clear-icon="close" v-model="todoStore.newTodo" ref="inputRef" autocomplete="off" @keydown.enter="addTodo()">
             <template v-slot:append>
                 <q-icon name="schedule"  />
             </template>
